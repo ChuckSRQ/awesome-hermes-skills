@@ -1,63 +1,272 @@
 # Awesome Hermes Skills
 
-A curated, production-ready collection of skills for [Hermes Agent](https://github.com/NousResearch/hermes-agent).
+<p align="center">
+  <img src="https://img.shields.io/badge/Hermes-Agent-v2.0-6366f1?style=for-the-badge" alt="Hermes Agent v2.0" />
+  <img src="https://img.shields.io/badge/Skills-83+-f59e0b?style=for-the-badge" alt="83+ Skills" />
+  <img src="https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge" alt="MIT License" />
+  <img src="https://img.shields.io/badge/Category-Productivity-06b6d4?style=for-the-badge" alt="Productivity" />
+</p>
 
-Each skill is a self-contained workflow, playbook, or integration — designed to be dropped into your Hermes setup and used immediately.
+<p align="center">
+  A curated, production-ready collection of skills for <a href="https://github.com/NousResearch/hermes-agent">Hermes Agent</a>.<br/>
+  Drop them in and use them immediately — no setup required (most of them).
+</p>
 
-## Installation
+---
 
-```bash
-git clone https://github.com/ChuckSRQ/awesome-hermes-skills.git ~/.hermes/skills
+## ⭐ Featured Skills
+
+These are the crown jewels — the skills that get used daily and make Hermes genuinely powerful.
+
+### 🖼️ Artifact Preview
+
+> *"Claude Artifacts" experience — complete code, instant live preview*
+
+Generate polished HTML/CSS/JS artifacts and open a live, interactive browser preview in seconds. Not a skeleton — real working apps with modern CSS, animations, and interactivity. Opens in a compact browser window so you can code and preview side-by-side.
+
+**Perfect for:** dashboards, UI components, prototypes, interactive demos, forms, games, data visualizations
+
+```
+make a dashboard showing my team stats
+build a landing page with a contact form
+show me an interactive map component
+create a tic-tac-toe game
 ```
 
-Or copy individual skill directories into your `~/.hermes/skills/` folder.
+**What you get:**
+- Self-contained HTML (no build step, no dependencies)
+- Modern glassmorphism aesthetic out of the box
+- Chrome opens at 1/4 screen size, top-left
+- Auto-refresh on code updates
+- Artifact saved to Obsidian or local history
 
-## Categories
+---
 
-| Category | Skills |
-|----------|--------|
-| **AI & Delegation** | Subagent Delegation, OpenClaude+z.ai |
-| **Apple Ecosystem** | iMessage, Reminders, Find My, Apple Notes |
-| **Brainstorming & Design** | Brainstorming, PRD Writing, PRD to Issues, PRD to Plan, Grill Me |
-| **Code Quality** | TDD, Systematic Debugging, Code Review, Git Guardrails |
-| **Development Workflow** | Pre-commit Setup, Write a PRD, Triage Issue, QA |
-| **Creative** | ASCII Art, ASCII Video, Architecture Diagrams, Excalidraw, p5.js, Manim, Songwriting |
-| **Documents** | PDF, DOCX, PPTX, XLSX |
-| **MLOps** | Axolotl, Unsloth, vLLM, llama.cpp, GGUF, Weights & Biases, LM Evaluation Harness |
-| **Research** | arXiv, Polymarket, Blog Watcher, Last30days |
-| **Productivity** | Linear, Notion, Google Workspace, Obsidian, Artifact Preview |
-| **Stripe** | Stripe Integration |
-| **API Discovery** | Public APIs (1400+ free APIs) |
-| **Web Dev** | Web Asset Generator, Typography, Color & Palette |
-| **Smart Home** | Philips Hue |
+### 🔬 Deep Research
 
-## Featured Skills
+> *9 lenses. One question. Analysis that single Google searches can't touch.*
 
-### Artifact Preview
-Generate complete HTML/CSS/JS artifacts and open live previews in the browser instantly. Opens in Google Chrome at 1/4 screen size. Artifact files self-contained with inline CSS/JS.
+A structured multi-angle research engine that forces you to think about any question from 9 fundamentally different angles — technical, economic, historical, business, strategic, customer, product, contrarian, and first-principles. Each lens surfaces things the others miss.
 
-### Test-Driven Development
-Strict RED-GREEN-REFACTOR cycle. Iron law: no production code without a failing test first. Includes anti-patterns, common rationalizations, and verification checklists.
+**Perfect for:** investment research, competitive analysis, architecture decisions, market sizing, due diligence, understanding emerging tech
 
-### Systematic Debugging
-Root-cause tracing framework with condition-based waiting, defense-in-depth checks, and academic rigor for complex bugs.
+```
+do deep research on whether Solana can challenge Ethereum
+deep research on the AI coding agent landscape
+research: should we build a mobile app or web app first
+```
 
-### Brainstorming
-Socratic pre-implementation design refinement. Uncover unknowns, challenge assumptions, pressure-test the plan before writing code.
+**What you get:**
+- 9-lens structured analysis
+- 5-tier source trust scoring
+- Executive summary + deep-dive + key players + open questions
+- Contradiction tracking between lenses
+- Compound knowledge that builds over time
 
-### Write a PRD
-Turn a conversation into a structured Product Requirements Document. Includes interview guide, template, and definition of done.
+---
 
-### Apple Integrations
-Full Apple ecosystem coverage: iMessage (send/receive), Apple Reminders (task management), Find My (device/AirTag tracking), Apple Notes.
+### 🧪 Agentic Benchmark Testing
 
-### Stripe Integration
-Payment flows, webhook handling, PCI compliance patterns. Built for crypto/web3-first projects — x402 support, no KYC defaults.
+> *Closed-loop behavioral benchmarking + evolutionary self-improvement*
 
-## Contributing
+Run behavioral benchmarks against the agent, detect failure patterns, generate guidance patches, and apply them with an auto-revert safety net. Implements the full GEPA (Genetic-Evolutionary Prompt Adjustment) optimization loop with DSPy integration.
 
-Found a skill worth sharing? Issues and PRs welcome. The bar: does this solve a real problem in a way that saves time?
+**Perfect for:** improving agent reliability, catching regressions, turning real failures into automated tests, evolving skills end-to-end
 
-## License
+```
+# Run all behavioral benchmarks
+/self-improve
 
-MIT
+# Run + auto-apply patches if improvement detected
+/self-improve --mode=apply
+
+# Run specific benchmark category
+/self-improve --benchmarks=mandatory_tool.yaml
+```
+
+**Benchmark categories covered:**
+- `mandatory_tool` — must use tools for math/hashes/time/files
+- `act_dont_ask` — act on obvious interpretation, don't ask for clarification unnecessarily
+- `no_hallucination` — check system state, don't answer from memory
+- `verification` — verify outputs before finalizing
+- `prerequisite` — discover before acting
+- `path_accuracy` — verify paths before using them
+- `context_grounding` — check actual context, don't assume
+- `auth_state` — verify credentials before using them
+- `remember_to_obsidian` — write durable facts to Obsidian, not just memory
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# Clone the entire collection
+git clone https://github.com/ChuckSRQ/awesome-hermes-skills.git ~/.hermes/skills
+
+# Or copy individual skill directories
+cp -r ~/.hermes/skills/awesome-hermes-skills/deep-research ~/.hermes/skills/
+cp -r ~/.hermes/skills/awesome-hermes-skills/productivity/artifact-preview ~/.hermes/skills/
+```
+
+Skills auto-load when you ask for them. Say `"do deep research on X"` or `"make me a dashboard"` and Hermes will load the right skill automatically.
+
+---
+
+## 📂 Browse by Category
+
+### 🧠 AI & Coding Agents
+| Skill | Description |
+|-------|-------------|
+| [Claude Code](skills/autonomous-ai-agents/claude-code) | Delegate to Anthropic's Claude Code CLI |
+| [Codex](skills/autonomous-ai-agents/codex) | Delegate to OpenAI Codex |
+| [OpenCode](skills/autonomous-ai-agents/opencode) | Delegate to OpenSource Code agent |
+| [Subagent Delegation](skills/autonomous-ai-agents/subagent-delegation) | Rules for delegating to subagents safely |
+| [Requesting Code Review](skills/software-development/requesting-code-review) | Pre-commit verification pipeline |
+
+### 🍎 Apple Ecosystem
+| Skill | Description |
+|-------|-------------|
+| [iMessage](skills/apple/imessage) | Send/receive SMS and iMessages |
+| [Reminders](skills/apple/apple-reminders) | Manage Apple Reminders lists |
+| [Find My](skills/apple/findmy) | Track devices and AirTags |
+| [Apple Notes](skills/apple/apple-notes) | Read/write Apple Notes |
+
+### 💡 Brainstorming & Design
+| Skill | Description |
+|-------|-------------|
+| [Brainstorming](skills/brainstorming) | Socratic pre-implementation refinement |
+| [Write a PRD](skills/write-a-prd) | Turn a conversation into a structured spec |
+| [PRD to Plan](skills/prd-to-plan) | Convert a PRD into implementation phases |
+| [PRD to Issues](skills/prd-to-issues) | Break a PRD into grabbable GitHub issues |
+| [Grill Me](skills/grill-me) | Relentless Socratic questioning of a plan |
+| [Ubiquitous Language](skills/ubiquitous-language) | DDD-style glossary extraction |
+
+### 🧪 Code Quality
+| Skill | Description |
+|-------|-------------|
+| [Test-Driven Development](skills/software-development/test-driven-development) | RED-GREEN-REFACTOR cycle with anti-patterns |
+| [Systematic Debugging](skills/software-development/systematic-debugging) | Root-cause tracing framework |
+| [Code Review](skills/software-development/code-review) | Security-focused review checklist |
+| [Triage Issue](skills/triage-issue) | Explore a codebase to find the bug |
+
+### 📄 Documents & Media
+| Skill | Description |
+|-------|-------------|
+| [PDF](skills/pdf) | Extract, merge, split, watermark PDFs |
+| [DOCX](skills/docx) | Create and edit Word documents |
+| [PPTX](skills/pptx) | Create PowerPoint presentations |
+| [XLSX](skills/xlsx) | Build Excel workbooks with formulas |
+| [OCR & Documents](skills/productivity/ocr-and-documents) | Extract text from scans and PDFs |
+| [YouTube Content](skills/media/youtube-content) | Fetch transcripts and transform content |
+
+### 🎨 Creative
+| Skill | Description |
+|-------|-------------|
+| [ASCII Art](skills/creative/ascii-art) | 571-font ASCII art generation |
+| [ASCII Video](skills/creative/ascii-video) | Full ASCII video pipeline |
+| [Architecture Diagrams](skills/creative/architecture-diagram) | Dark-themed system diagrams |
+| [Excalidraw](skills/creative/excalidraw) | Hand-drawn style diagrams |
+| [p5.js](skills/creative/p5js) | Interactive generative art |
+| [Manim Video](skills/creative/manim-video) | Math/animation videos |
+| [Songwriting + AI Music](skills/creative/songwriting-and-ai-music) | Lyrics and Suno prompts |
+
+### 🤖 MLOps & AI
+| Skill | Description |
+|-------|-------------|
+| [Axolotl](skills/mlops/training/axolotl) | Fine-tune LLMs with Axolotl |
+| [Unsloth](skills/mlops/training/unsloth) | 2-5x faster fine-tuning |
+| [vLLM](skills/mlops/inference/vllm) | High-throughput model serving |
+| [llama.cpp](skills/mlops/inference/llama-cpp) | CPU/Apple Silicon inference |
+| [GGUF Quantization](skills/mlops/inference/gguf) | Efficient model quantization |
+| [DSPy](skills/mlops/research/dspy) | Declarative AI system programming |
+| [Weights & Biases](skills/mlops/evaluation/weights-and-biases) | Experiment tracking |
+| [Whisper](skills/mlops/models/whisper) | Speech recognition |
+| [Stable Diffusion](skills/mlops/models/stable-diffusion) | Text-to-image generation |
+
+### 📊 Research
+| Skill | Description |
+|-------|-------------|
+| [arXiv](skills/research/arxiv) | Academic paper search and retrieval |
+| [Polymarket](skills/research/polymarket) | Prediction market data |
+| [Blog Watcher](skills/research/blogwatcher) | RSS/Atom feed monitoring |
+| [Last30days](skills/research/last30days) | Social search across Reddit + X |
+| [LLM Wiki](skills/research/llm-wiki) | Karpathy's LLM knowledge base |
+
+### 💳 Payments & Web3
+| Skill | Description |
+|-------|-------------|
+| [Stripe Integration](skills/stripe-integration) | Payment flows, webhooks, PCI compliance |
+| [x402 Payments](skills/public-apis) | Crypto-native HTTP 402 payments |
+
+### 🏠 Smart Home & Leisure
+| Skill | Description |
+|-------|-------------|
+| [Philips Hue](skills/smart-home/openhue) | Control Hue lights, rooms, scenes |
+| [Find Nearby](skills/leisure/find-nearby) | Restaurants, cafes, bars, pharmacies |
+| [Minecraft Server](skills/gaming/minecraft-modpack-server) | Modded server setup |
+| [Pokemon Player](skills/gaming/pokemon-player) | Autonomous Pokemon play |
+
+### 🔧 Productivity & Ops
+| Skill | Description |
+|-------|-------------|
+| [Linear](skills/productivity/linear) | Manage Linear issues via API |
+| [Notion](skills/productivity/notion) | Notion pages and databases |
+| [Google Workspace](skills/productivity/google-workspace) | Gmail, Calendar, Drive, Sheets |
+| [Obsidian](skills/note-taking/obsidian) | Read/write/search vault notes |
+| [Himalaya Email](skills/email/himalaya) | CLI email via IMAP/SMTP |
+| [GitHub PR Workflow](skills/github/github-pr-workflow) | Full PR lifecycle |
+| [Webhook Subscriptions](skills/devops/webhook-subscriptions) | Event-driven webhook management |
+| [Pre-commit Hooks](skills/setup-pre-commit) | Husky + lint-staged setup |
+
+### 🌐 Web Development
+| Skill | Description |
+|-------|-------------|
+| [Web Asset Generator](skills/web-asset-generator) | Favicons, app icons, PWA icons |
+| [Typography](skills/typography) | Font selection and pairing |
+| [Color & Palette](skills/color-and-palette) | Color theory and palette building |
+| [Aesthetic Principles](skills/aesthetic-principles) | Core web design principles |
+| [TALL Stack Dev](skills/tall-stack-dev) | Laravel + Tailwind + Alpine + Livewire |
+
+---
+
+## 🏆 Chuck's Favorites
+
+Personal picks from the collection — skills that are particularly well-crafted, surprising, or underrated:
+
+| Skill | Why it's great |
+|-------|---------------|
+| [Deep Research](skills/deep-research) | The 9-lens system genuinely produces insights I'd miss solo |
+| [Artifact Preview](skills/productivity/artifact-preview) | Instant visual feedback on code — faster than iterations |
+| [Brainstorming](skills/brainstorming) | Catches bad ideas before writing them |
+| [TDD](skills/software-development/test-driven-development) | The anti-patterns section alone is worth the read |
+| [Systematic Debugging](skills/software-development/systematic-debugging) | Condition-based waiting + defense-in-depth checks |
+| [p5.js](skills/creative/p5js) | Beautiful generative art with minimal code |
+| [HeartMuLa](skills/media/heartmula) | Open-source music generation — surprisingly good |
+| [Stripe Integration](skills/stripe-integration) | x402 crypto payments done right, no KYC defaults |
+| [ASCII Art](skills/creative/ascii-art) | 571 fonts. Enough said. |
+| [Grill Me](skills/grill-me) | Socratic questioning that actually pressures the plan |
+
+---
+
+## 🤝 Contributing
+
+Found a skill worth sharing? The bar is simple: **does this solve a real problem in a way that saves time?**
+
+- Open an issue to discuss before submitting
+- PRs welcome — keep it clean and MIT-licensed
+- Personal info is scrubbed before merging (see repo for scrubbing guide)
+
+---
+
+## 📜 License
+
+MIT — use freely, modify freely, credit Awesome Hermes if you're feeling generous.
+
+---
+
+<p align="center">
+  <sub>Maintained with ❤️ for the Hermes Agent community</sub><br/>
+  <a href="https://github.com/ChuckSRQ/awesome-hermes-skills">GitHub</a> ·
+  <a href="https://github.com/NousResearch/hermes-agent">Hermes Agent</a> ·
+  <a href="https://github.com/NousResearch/hermes-agent-self-evolution">HERMES Self-Evolution</a>
+</p>
