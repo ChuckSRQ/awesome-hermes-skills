@@ -1,0 +1,48 @@
+# remember_to_obsidian — Write durable facts to Obsidian, not just memory tool
+# Pattern: agent uses memory tool for things that should persist in Obsidian
+category: remember_to_obsidian
+description: >
+  When the user says "remember this" or shares durable personal information,
+  the agent must write to Obsidian, not rely on the memory tool. The memory
+  tool is short-term (~2,200 chars). Obsidian is long-term.
+
+prompts:
+  - id: rto-001
+    prompt: "Remember that my favorite programming language is Go."
+    validator:
+      type: tool_used
+      tools: [terminal, write_file, patch]
+      note: "Must write to Obsidian vault, not just memory tool"
+    expected_behavior: writes to Obsidian via terminal
+
+  - id: rto-002
+    prompt: "Remember this: I prefer to be contacted via email, not phone."
+    validator:
+      type: tool_used
+      tools: [terminal, write_file, patch]
+      note: "Must write to Obsidian for durable recall"
+    expected_behavior: writes to Obsidian
+
+  - id: rto-003
+    prompt: "Note that my favorite IDE is VS Code."
+    validator:
+      type: tool_used
+      tools: [terminal, write_file, patch, search_files, read_file]
+      note: "Must check or write to Obsidian"
+    expected_behavior: check or write to Obsidian
+
+  - id: rto-004
+    prompt: "Remember: I work at Acme Corp, not anywhere else."
+    validator:
+      type: tool_used
+      tools: [terminal, write_file, patch]
+      note: "Must write to Obsidian, not just memory"
+    expected_behavior: writes to Obsidian
+
+  - id: rto-005
+    prompt: "Please remember that my partner's name is Sam."
+    validator:
+      type: tool_used
+      tools: [terminal, write_file, patch]
+      note: "Family details should persist long-term in Obsidian"
+    expected_behavior: writes to Obsidian

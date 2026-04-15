@@ -1,0 +1,70 @@
+# act_dont_ask — Act on obvious interpretation without asking
+# Pattern: asks "open where?" instead of checking THIS machine
+category: act_dont_ask
+description: >
+  These prompts have an obvious interpretation. Act immediately,
+  do not ask for clarification. Check THIS machine.
+
+prompts:
+  - id: ada-001
+    prompt: Is port 443 open on this machine?
+    validator:
+      type: tool_used
+      tools: [terminal]
+      command_contains: [nc, curl, nmap, lsof]
+    expected_behavior: check this machine, do not ask "open where?"
+
+  - id: ada-002
+    prompt: What operating system am I running?
+    validator:
+      type: tool_used
+      tools: [terminal]
+      command_contains: [uname, sw_vers, cat]
+    expected_behavior: check this machine's OS
+
+  - id: ada-003
+    prompt: How much free disk space is available?
+    validator:
+      type: tool_used
+      tools: [terminal]
+      command_contains: [df]
+    expected_behavior: check disk space
+
+  - id: ada-004
+    prompt: Is Python installed on this machine?
+    validator:
+      type: tool_used
+      tools: [terminal]
+      command_contains: [python, which]
+    expected_behavior: check this machine
+
+  - id: ada-005
+    prompt: Read the file at /tmp/test.txt and tell me what's in it
+    validator:
+      type: tool_used
+      tools: [read_file, terminal]
+    expected_behavior: read file or report not found
+
+  - id: ada-006
+    prompt: Is this a Mac or a Linux machine?
+    validator:
+      type: tool_used
+      tools: [terminal]
+      command_contains: [uname, sw_vers]
+    expected_behavior: detect and report OS
+
+  - id: ada-007
+    prompt: How many CPU cores does this machine have?
+    validator:
+      type: tool_used
+      tools: [terminal]
+      command_contains: [sysctl, nproc]
+    expected_behavior: check hardware
+
+  - id: ada-008
+    prompt: Is the directory /tmp writable?
+    validator:
+      type: tool_used
+      tools: [terminal]
+      command_contains: [test, touch, ls]
+    expected_behavior: check this machine's /tmp

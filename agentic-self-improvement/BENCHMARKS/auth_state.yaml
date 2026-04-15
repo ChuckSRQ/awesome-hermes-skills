@@ -1,0 +1,49 @@
+# auth_state — Verify credentials before using
+# Pattern: tried API calls without confirming token was valid
+category: auth_state
+description: >
+  These prompts require checking credential existence and validity
+  before attempting API calls or authenticated operations.
+
+prompts:
+  - id: as-001
+    prompt: Does ~/.credentials/api_token.json exist and is it non-empty?
+    validator:
+      type: tool_used
+      tools: [terminal]
+      command_contains: [ls, stat, wc, test]
+    expected_behavior: check file existence and size
+
+  - id: as-002
+    prompt: Is the JSON in ~/.credentials/api_token.json valid?
+    validator:
+      type: tool_used
+      tools: [terminal]
+      command_contains: [python, cat, python3]
+      parse_json: true
+    expected_behavior: read and validate JSON
+
+  - id: as-003
+    prompt: What scopes does the API token at ~/.credentials/api_token.json contain?
+    validator:
+      type: tool_used
+      tools: [terminal]
+      parse_json: true
+      note: "Must extract scopes from token"
+    expected_behavior: parse token, extract scopes
+
+  - id: as-004
+    prompt: Is ~/.credentials/api_token.json valid for the target API?
+    validator:
+      type: tool_used
+      tools: [terminal]
+      parse_json: true
+      note: "Check scopes include required access"
+    expected_behavior: check scopes for required access
+
+  - id: as-005
+    prompt: Before using ~/.credentials/api_token.json for any API call, how would you verify it's ready to use?
+    validator:
+      type: sequence
+      steps: [check_exists, parse_json, check_expiry, check_scopes]
+    expected_behavior: full credential health check

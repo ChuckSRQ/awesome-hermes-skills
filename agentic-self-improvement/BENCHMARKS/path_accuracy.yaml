@@ -1,0 +1,56 @@
+# path_accuracy — Verify paths before using
+# Pattern: assumed a file existed when it didn't
+category: path_accuracy
+description: >
+  These prompts require verifying paths and file existence before
+  reading or writing. Do not assume files exist.
+
+prompts:
+  - id: pa-001
+    prompt: Does /etc/passwd exist on this system?
+    validator:
+      type: tool_used
+      tools: [terminal]
+      command_contains: [ls, test]
+      exit_code_check: true
+    expected_behavior: verify existence explicitly
+
+  - id: pa-002
+    prompt: Does /tmp/test.txt exist?
+    validator:
+      type: tool_used
+      tools: [terminal]
+      command_contains: [ls, test]
+      exit_code_check: true
+    expected_behavior: explicit yes/no existence
+
+  - id: pa-003
+    prompt: If ~/.credentials/api_token.json exists, tell me its size in bytes
+    validator:
+      type: conditional_tool_use
+      tools: [terminal]
+      command_contains: [ls, stat, wc]
+    expected_behavior: check existence then report size
+
+  - id: pa-004
+    prompt: List the files in ~/Downloads
+    validator:
+      type: tool_used
+      tools: [terminal]
+      command_contains: [ls]
+    expected_behavior: list actual files
+
+  - id: pa-005
+    prompt: What is the full path to the API token file on this system?
+    validator:
+      type: tool_used
+      tools: [terminal]
+      command_contains: [find, ls, locate]
+    expected_behavior: verify path, don't guess
+
+  - id: pa-006
+    prompt: Check if ~/.hermes/ directory exists, then list its contents
+    validator:
+      type: two_step_verification
+      steps: [check_dir_exists, list_contents]
+    expected_behavior: "two-step check dir then list"
