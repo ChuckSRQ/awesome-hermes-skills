@@ -229,25 +229,6 @@ Skills auto-load when you ask for them. Say `"do deep research on X"` or `"make 
 
 ---
 
-## 🏆 Chuck's Favorites
-
-Personal picks from the collection — skills that are particularly well-crafted, surprising, or underrated:
-
-| Skill | Why it's great |
-|-------|---------------|
-| [Deep Research](skills/deep-research) | The 9-lens system genuinely produces insights I'd miss solo |
-| [Artifact Preview](skills/productivity/artifact-preview) | Instant visual feedback on code — faster than iterations |
-| [Brainstorming](skills/brainstorming) | Catches bad ideas before writing them |
-| [TDD](skills/software-development/test-driven-development) | The anti-patterns section alone is worth the read |
-| [Systematic Debugging](skills/software-development/systematic-debugging) | Condition-based waiting + defense-in-depth checks |
-| [p5.js](skills/creative/p5js) | Beautiful generative art with minimal code |
-| [HeartMuLa](skills/media/heartmula) | Open-source music generation — surprisingly good |
-| [Stripe Integration](skills/stripe-integration) | x402 crypto payments done right, no KYC defaults |
-| [ASCII Art](skills/creative/ascii-art) | 571 fonts. Enough said. |
-| [Grill Me](skills/grill-me) | Socratic questioning that actually pressures the plan |
-
----
-
 ## 🤝 Contributing
 
 Found a skill worth sharing? The bar is simple: **does this solve a real problem in a way that saves time?**
