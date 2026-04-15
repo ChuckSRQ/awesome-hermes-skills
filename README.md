@@ -42,7 +42,7 @@ create a tic-tac-toe game
 
 ---
 
-### 🔬 Deep Research
+### 🔬 [Deep Research](deep-research/SKILL.md)
 
 > *9 lenses. One question. Analysis that single Google searches can't touch.*
 
