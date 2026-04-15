@@ -18,7 +18,7 @@
 
 These are the crown jewels — the skills that get used daily and make Hermes genuinely powerful.
 
-### 🖼️ Artifact Preview
+### 🖼️ [Artifact Preview](skills/productivity/artifact-preview)
 
 > *"Claude Artifacts" experience — complete code, instant live preview*
 
@@ -65,7 +65,7 @@ research: should we build a mobile app or web app first
 
 ---
 
-### 🧪 Agentic Benchmark Testing
+### 🧪 [Agentic Benchmark Testing](skills/agentic-self-improvement)
 
 > *Closed-loop behavioral benchmarking + evolutionary self-improvement*
 
