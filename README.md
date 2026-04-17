@@ -18,7 +18,7 @@
 
 These are the crown jewels — the skills that get used daily and make Hermes genuinely powerful.
 
-### 🔥🪽 [Artifact Preview v2.0](skills/productivity/artifact-preview) <img src="https://img.shields.io/badge/NEW-v2.0-8B5CF6?style=flat-square" alt="v2.0" />
+### 🔥🪽 [Artifact Preview v2.0](skills/productivity/artifact-preview/README.md) <img src="https://img.shields.io/badge/NEW-v2.0-8B5CF6?style=flat-square" alt="v2.0" />
 
 > *The "Claude Artifacts" experience — for any AI agent. Write code, see it live. Instantly.*
 
@@ -32,6 +32,16 @@ build a landing page with a contact form
 show me an interactive map component
 create a tic-tac-toe game
 ```
+
+#### 📥 Download
+
+```bash
+cp -r ~/.hermes/skills/awesome-hermes-skills/productivity/artifact-preview ~/.hermes/skills/
+```
+
+**[→ Read the full skill documentation](skills/productivity/artifact-preview/README.md)**
+
+---
 
 #### ✨ What's new in v2.0
 
