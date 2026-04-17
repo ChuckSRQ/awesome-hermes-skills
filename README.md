@@ -18,13 +18,13 @@
 
 These are the crown jewels — the skills that get used daily and make Hermes genuinely powerful.
 
-### 🖼️ [Artifact Preview](skills/productivity/artifact-preview)
+### 🔥🪽 [Artifact Preview v2.0](skills/productivity/artifact-preview) <img src="https://img.shields.io/badge/NEW-v2.0-8B5CF6?style=flat-square" alt="v2.0" />
 
-> *"Claude Artifacts" experience — complete code, instant live preview*
+> *The "Claude Artifacts" experience — for any AI agent. Write code, see it live. Instantly.*
 
-Generate polished HTML/CSS/JS artifacts and open a live, interactive browser preview in seconds. Not a skeleton — real working apps with modern CSS, animations, and interactivity. Opens in a compact browser window so you can code and preview side-by-side.
+Write a prompt. Get a **real, working app** — not a skeleton, not a toy. A polished, interactive artifact that opens live in a compact browser window the moment it's generated. Edit it inline. Screenshot it. Share it. All in seconds.
 
-**Perfect for:** dashboards, UI components, prototypes, interactive demos, forms, games, data visualizations
+**Perfect for:** dashboards, UI components, prototypes, interactive demos, forms, games, data visualizations, landing pages, charts, plugins
 
 ```
 make a dashboard showing my team stats
@@ -33,15 +33,21 @@ show me an interactive map component
 create a tic-tac-toe game
 ```
 
-**What you get:**
-- Self-contained HTML (no build step, no dependencies)
-- Modern dark theme with violet accents
-- 🪽 **Hermes Preview** — branded compact window, no mode clutter
-- 📐 **Auto-fit card** — preview shrinks to hug widgets/charts, expands for full websites
-- ✏️ **Inline editor** — Code/Split/Preview tabs to edit HTML live
-- 📸 **Screenshot + Share** — one-click capture to macOS Preview with full share sheet
-- ⚡ **SSE live reload** — instant updates when code changes, no polling
-- ⌨️ **Keyboard shortcuts** — Cmd+Shift+E (editor), Cmd+Shift+S (save), Cmd+Shift+R (refresh)
+#### ✨ What's new in v2.0
+
+- 🪽 **Hermes Preview** — branded compact window with violet accents. No mode clutter, no toggles. Just preview.
+- 📐 **Auto-fit smart card** — the preview *shrinks to hug* small widgets and charts, *expands* for full-width websites. No manual resizing. It just knows.
+- ✏️ **Inline HTML editor** — Code / Split / Preview tabs right in the toolbar. Edit live, see changes in real-time.
+- 📸 **Screenshot + macOS Share** — one click captures to Preview.app with the full system share sheet. AirDrop, Messages, Mail — whatever.
+- ⚡ **Zero-latency reload** — SSE pushes updates the instant you save. No polling, no waiting, no refresh buttons.
+
+#### 🎯 Core features
+
+- 🏗️ **Self-contained HTML** — one file, no build step, no npm, no dependencies (except Google Fonts)
+- 🎨 **Modern dark theme** — midnight blue + violet accent (#8B5CF6), glassmorphism card, clean typography
+- 🖥️ **Smart windowing** — compact 640px window for widgets, full browser tab for websites. You pick at launch.
+- ⌨️ **Keyboard-first** — `Cmd+Shift+E` editor, `Cmd+Shift+S` save, `Cmd+Shift+R` refresh
+- 📦 **Drop-in setup** — Python server, one command to start, zero config
 
 ---
 
