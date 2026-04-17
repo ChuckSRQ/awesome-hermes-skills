@@ -35,10 +35,13 @@ create a tic-tac-toe game
 
 **What you get:**
 - Self-contained HTML (no build step, no dependencies)
-- Modern glassmorphism aesthetic out of the box
-- Chrome opens at 1/4 screen size, top-left
-- Auto-refresh on code updates
-- Artifact saved to Obsidian or local history
+- Modern dark theme with violet accents
+- 🪽 **Hermes Preview** — branded compact window, no mode clutter
+- 📐 **Auto-fit card** — preview shrinks to hug widgets/charts, expands for full websites
+- ✏️ **Inline editor** — Code/Split/Preview tabs to edit HTML live
+- 📸 **Screenshot + Share** — one-click capture to macOS Preview with full share sheet
+- ⚡ **SSE live reload** — instant updates when code changes, no polling
+- ⌨️ **Keyboard shortcuts** — Cmd+Shift+E (editor), Cmd+Shift+S (save), Cmd+Shift+R (refresh)
 
 ---
 
