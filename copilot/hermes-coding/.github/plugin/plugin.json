@@ -1,0 +1,36 @@
+{
+  "name": "hermes-coding",
+  "description": "Coding and development skills from Hermes Agent - code review, test-driven development, debugging, AI coding agents, GitHub workflows, and more.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Carlos Graterol"
+  },
+  "repository": "https://github.com/ChuckSRQ/awesome-hermes-skills",
+  "license": "MIT",
+  "keywords": ["coding", "development", "code-review", "tdd", "debugging", "claude-code", "github", "mlops"],
+  "skills": [
+    "./skills/code-review",
+    "./skills/test-driven-development",
+    "./skills/systematic-debugging",
+    "./skills/plan",
+    "./skills/subagent-driven-development",
+    "./skills/claude-code",
+    "./skills/codex",
+    "./skills/opencode",
+    "./skills/subagent-delegation",
+    "./skills/github-pr-workflow",
+    "./skills/github-code-review",
+    "./skills/github-repo-management",
+    "./skills/github-issues",
+    "./skills/codebase-inspection",
+    "./skills/triage-issue",
+    "./skills/invisible-elements-debugging",
+    "./skills/architecture-diagram",
+    "./skills/excalidraw",
+    "./skills/vllm",
+    "./skills/llama-cpp",
+    "./skills/gguf",
+    "./skills/mcporter",
+    "./skills/native-mcp"
+  ]
+}
