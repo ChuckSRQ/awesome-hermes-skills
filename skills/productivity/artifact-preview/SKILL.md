@@ -1,6 +1,6 @@
 ---
 name: artifact-preview
-description: Generate HTML/CSS/JS artifacts and open live previews instantly. Auto-opens browser after writing artifact. Two launch modes via script — Square (compact window) and Full (browser tab). Card auto-fits to content size. No mode toggle. Includes screenshot-to-Preview sharing and inline HTML editor. v2.0.
+description: Generate HTML/CSS/JS artifacts and open live previews instantly. Auto-opens browser after writing artifact. Three launch modes — Portrait (phone), Horizontal (video), Full (maximized). Card auto-fits to content size. No mode toggle. Includes screenshot-to-Preview sharing and inline HTML editor. v3.0.
 triggers:
   - make
   - build
@@ -24,9 +24,9 @@ triggers:
   - plugin
 ---
 
-# Artifact Preview v2.0 — Live HTML/CSS/JS Preview
+# Artifact Preview v3.0 — Live HTML/CSS/JS Preview
 
-Generates complete, polished HTML/CSS/JS, saves it, and **automatically opens the browser** — no manual steps. Two launch scripts: **Square** (`bash ~/artifact-preview/open-chrome.sh square`) opens a compact 640px window, **Full** (`bash ~/artifact-preview/open-chrome.sh full`) opens a new browser tab. The card is purely responsive (max-width 960px, centered, rounded) — no mode toggle, no state. The window size IS the mode.
+Generates complete, polished HTML/CSS/JS, saves it, and **automatically opens the browser** — no manual steps. Three launch scripts: **Portrait** (`bash ~/artifact-preview/open-chrome.sh portrait`) opens a phone-sized window (~430×844), **Horizontal** (`bash ~/artifact-preview/open-chrome.sh horizontal`) opens a video-sized window (~1240×720), **Full** (`bash ~/artifact-preview/open-chrome.sh full`) opens a maximized Chrome window. The card is purely responsive (max-width 960px, centered, rounded) — no mode toggle, no state. The window size IS the mode.
 
 ## One-time setup
 
@@ -74,10 +74,13 @@ ENDOFFILE
 After saving, **auto-open the browser**:
 
 ```bash
-# For components/widgets/plugins/charts/videos → compact 640px window
-bash ~/artifact-preview/open-chrome.sh square
+# For phone/mobile artboards → portrait window (~430×844)
+bash ~/artifact-preview/open-chrome.sh portrait
 
-# For complete websites → full browser tab
+# For video/landscape content → horizontal window (~1240×720)
+bash ~/artifact-preview/open-chrome.sh horizontal
+
+# For everything else → maximized Chrome window
 bash ~/artifact-preview/open-chrome.sh full
 ```
 
@@ -95,10 +98,11 @@ Overwrite `~/artifact-preview/artifact.html`, then click **Refresh** in the tool
 
 | Content type | Launch command | Result |
 |-------------|---------------|--------|
-| Widget, plugin, component, chart, video | `bash ~/artifact-preview/open-chrome.sh square` | Compact 640px Chrome window, card fills it naturally |
-| Complete website, landing page, full layout | `bash ~/artifact-preview/open-chrome.sh full` | Full browser tab, card maxes at 960px centered |
+| Phone/mobile artboards, Instagram, tall UI | `bash ~/artifact-preview/open-chrome.sh portrait` | Phone-sized window, bounds {60,60,490,904} |
+| Video, landscape layouts, wide components | `bash ~/artifact-preview/open-chrome.sh horizontal` | Video-sized window, bounds {60,60,1300,740} |
+| Full websites, dashboards, complete layouts | `bash ~/artifact-preview/open-chrome.sh full` | Maximized Chrome window (screen bounds) |
 
-Square is the **default** — use it unless you're previewing a full website.
+**Default is `full`** — calling `open-chrome.sh` with no argument opens maximized.
 
 There is **no mode toggle** in the toolbar. The window size IS the mode. The card is responsive and adapts to whatever window it's in.
 
@@ -169,7 +173,7 @@ This approach is more reliable than programmatic share sheets and gives you full
 ```
 ~/artifact-preview/
   server.py          ← Python HTTP server with SSE (run once, stays in background)
-  open-chrome.sh     ← Browser launcher (square compact window / full tab)
+  open-chrome.sh     ← Browser launcher (portrait / horizontal / full window)
   share-screenshot.py ← Saves screenshot to Downloads + opens Preview
   index.html         ← UI wrapper with toolbar (don't edit)
   artifact.html      ← Your generated artifact (overwrite each time)
@@ -270,10 +274,10 @@ This is a CSS overflow stacking issue. The correct overflow hierarchy (discovere
 Common mistake: adding `height: 100%` to `#preview-card` — this resolves against the container's height (which is `auto`), not the viewport. Let `overflow: visible` let the card grow beyond it.
 
 **Card appears full-width when it should be compact:**
-Always open with `bash ~/artifact-preview/open-chrome.sh square` — NOT `open "http://localhost:8765"`. The `open` command opens a full Chrome tab. The `?square` URL param is NOT read by the app. The AppleScript launcher sets the Chrome window bounds to 640px — that IS the compact mode.
+Always open with `bash ~/artifact-preview/open-chrome.sh portrait` (or `horizontal` for wide content) — NOT `open "http://localhost:8765"`. The `open` command opens a full Chrome tab. The AppleScript launcher sets the Chrome window bounds — that IS the compact mode.
 
 **Debugging pitfall — CSS vs launcher:**
-If the card appears full-width, FIRST check whether you used `open` (wrong) vs `bash ~/artifact-preview/open-chrome.sh square` (correct). Don't waste time tweaking CSS — the issue is the Chrome window size, not the card CSS. The browser automation tool (browser_navigate) opens tabs at full width too, so it won't reproduce the compact-window experience.
+If the card appears full-width, FIRST check whether you used `open` (wrong) vs `bash ~/artifact-preview/open-chrome.sh portrait` (correct). Don't waste time tweaking CSS — the issue is the Chrome window size, not the card CSS. The browser automation tool (browser_navigate) opens tabs at full width too, so it won't reproduce the compact-window experience.
 
 **editor-open class leaking into Preview mode:**
 If `setEditorTab('preview')` doesn't remove `editor-open` from body, the card stays at editor width (1000px) instead of 640px. Fix: `setEditorTab` removes ALL body classes first (`editor-open`, `editor-code`, `editor-split`, `editor-preview-tab`), then adds only the new one.
@@ -289,35 +293,53 @@ If `setEditorTab('preview')` doesn't remove `editor-open` from body, the card st
 
 **Chrome window not opening:**
 - Make sure `open-chrome.applescript` is executable: `chmod +x ~/artifact-preview/open-chrome.applescript`
-- Use `osascript ~/artifact-preview/open-chrome.applescript square` directly (the .sh wrapper just calls this)
-- **Important**: AppleScript variable name `mode` conflicts with Chrome's dictionary — always use `theMode` or another name
+- Use `osascript ~/artifact-preview/open-chrome.applescript portrait` directly (the .sh wrapper just calls this)
+- **Important**: AppleScript variable name `mode` conflicts with Chrome's dictionary — always use a different variable name
+- **macOS Automation permissions**: the first time you run this, macOS will prompt for Automation/Accessibility access. Grant Terminal (or your terminal app) permission to control Google Chrome in System Preferences → Privacy & Security → Automation.
 
 **AppleScript argument passing:**
 - `#!/usr/bin/env osascript` shebang does NOT pass CLI arguments — use explicit `osascript /path/to/script.applescript "$arg"` instead
-- Variable name `mode` is reserved in Chrome's OSA dictionary — rename to `theMode` or similar
+- Variable name `mode` is reserved in Chrome's OSA dictionary — rename to avoid it
 - Correct pattern for the `.applescript` file:
 
 ```applescript
 on run argv
-    set theMode to "square"
-    if (count of argv) > 0 then
-        set theMode to item 1 of argv
+    set rawMode to "full"
+    if (count of argv) > 0 then set rawMode to item 1 of argv
+
+    -- Normalize
+    try
+        set theMode to do shell script "printf %s " & quoted form of rawMode & " | tr '[:upper:]' '[:lower:]'"
+    on error
+        set theMode to rawMode
+    end try
+
+    tell application "System Events"
+        set chromeRunning to (exists (processes where name is "Google Chrome"))
+    end tell
+
+    if not chromeRunning then
+        tell application "Google Chrome" to launch
+        delay 0.6
     end if
+
     tell application "Google Chrome"
         activate
-        if theMode is "square" then
-            make new window
-            delay 0.2
-            tell front window
-                set bounds to {60, 60, 680, 700}
-                set URL of active tab to "http://localhost:8765"
-            end tell
+        make new window
+        delay 0.15
+
+        if theMode is "portrait" then
+            set bounds of front window to {60, 60, 490, 904}
+        else if theMode is "horizontal" then
+            set bounds of front window to {60, 60, 1300, 740}
         else
-            tell front window
-                make new tab at end of tabs
-                set URL of active tab to "http://localhost:8765"
+            tell application "Finder"
+                set screenBounds to bounds of window of desktop
             end tell
+            set bounds of front window to screenBounds
         end if
+
+        set URL of active tab of front window to "http://localhost:8765"
     end tell
 end run
 ```
@@ -334,7 +356,16 @@ end run
 
 ---
 
-## What's new in v2.0
+## What's new in v3.0
+
+- **Three content-shaped modes** — `portrait` (phone, ~430×844), `horizontal` (video, ~1240×720), `full` (maximized window)
+- **`full` now opens a maximized window** — not a new tab
+- **Auto-launches Chrome** if not already running
+- **Try/retry error handling** — recovers if Chrome is unresponsive
+- **Shell wrapper validates modes** — exits code 2 on invalid input
+- **macOS Automation permission** note added to troubleshooting
+
+## What was new in v2.0
 
 - **No mode toggle** — Square/Full removed from toolbar. Window size IS the mode. Card is purely responsive (max-width 960px).
 - **🪽 Hermes Preview** title with violet accent (#8B5CF6) replaces Square/Full toggle buttons
