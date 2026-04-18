@@ -2,23 +2,22 @@ on run argv
     set rawMode to "full"
     if (count of argv) > 0 then set rawMode to item 1 of argv
 
-    -- Normalize: lowercase, strip whitespace
     try
-        set mode to do shell script "printf %s " & quoted form of rawMode & " | tr '[:upper:]' '[:lower:]' | tr -d \"'\" | xargs"
+        set theMode to do shell script "printf %s " & quoted form of rawMode & " | tr '[:upper:]' '[:lower:]' | tr -d \"'\" | xargs"
     on error
-        set mode to rawMode
+        set theMode to rawMode
     end try
 
     set previewURL to "http://localhost:8765"
 
-    -- Ensure Chrome is running
+    -- Ensure Chrome is running — use "open" to respect default profile
     tell application "System Events"
         set chromeRunning to (exists (processes where name is "Google Chrome"))
     end tell
 
     if not chromeRunning then
-        tell application "Google Chrome" to launch
-        delay 0.6
+        do shell script "open -a 'Google Chrome'"
+        delay 1.0
     end if
 
     tell application "Google Chrome"
@@ -27,45 +26,44 @@ on run argv
         try
             make new window
             delay 0.15
-
-            if mode is "portrait" then
-                set bounds of front window to {60, 60, 490, 904}
-            else if mode is "horizontal" then
-                set bounds of front window to {60, 60, 1300, 740}
-            else
-                -- full: use primary display bounds
-                tell application "Finder"
-                    set screenBounds to bounds of window of desktop
-                end tell
-                set bounds of front window to screenBounds
-            end if
-
             set URL of active tab of front window to previewURL
 
+            if theMode is "portrait" then
+                set bounds of front window to {60, 60, 490, 904}
+            else if theMode is "horizontal" then
+                set bounds of front window to {60, 60, 1300, 740}
+            else
+                -- full: get main screen logical size and set window bounds
+                set screenDims to do shell script "swift -e 'import AppKit; let s = NSScreen.main!.frame.size; print(Int(s.width), Int(s.height))'"
+                set oldDelims to AppleScript's text item delimiters
+                set AppleScript's text item delimiters to " "
+                set screenW to (text item 1 of screenDims) as integer
+                set screenH to (text item 2 of screenDims) as integer
+                set AppleScript's text item delimiters to oldDelims
+                set bounds of front window to {0, 0, screenW, screenH}
+            end if
+
         on error errMsg number errNum
-            -- Attempt recovery: quit, relaunch, retry once
+            delay 0.5
             try
-                tell application "Google Chrome" to quit
-            end try
-            delay 0.6
-            try
-                tell application "Google Chrome" to launch
-                delay 0.8
-                tell application "Google Chrome" to activate
                 make new window
-                if mode is "portrait" then
+                delay 0.15
+                set URL of active tab of front window to previewURL
+                if theMode is "portrait" then
                     set bounds of front window to {60, 60, 490, 904}
-                else if mode is "horizontal" then
+                else if theMode is "horizontal" then
                     set bounds of front window to {60, 60, 1300, 740}
                 else
-                    tell application "Finder"
-                        set screenBounds to bounds of window of desktop
-                    end tell
-                    set bounds of front window to screenBounds
+                    set screenDims to do shell script "swift -e 'import AppKit; let s = NSScreen.main!.frame.size; print(Int(s.width), Int(s.height))'"
+                    set oldDelims to AppleScript's text item delimiters
+                    set AppleScript's text item delimiters to " "
+                    set screenW to (text item 1 of screenDims) as integer
+                    set screenH to (text item 2 of screenDims) as integer
+                    set AppleScript's text item delimiters to oldDelims
+                    set bounds of front window to {0, 0, screenW, screenH}
                 end if
-                set URL of active tab of front window to previewURL
             on error errMsg2 number errNum2
-                do shell script "printf 'Fatal: %s (%d)\n' " & quoted form of errMsg2 & " " & errNum2 & " >&2; exit 4"
+                do shell script "printf 'Fatal: %s (%d)\\n' " & quoted form of errMsg2 & " " & errNum2 & " >&2; exit 4"
             end try
         end try
     end tell
