@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
-Artifact Preview Server v2.0 — Fast caching HTTP server with SSE for live updates.
+Artifact Preview Server v4.0 — Fast caching HTTP server with SSE for live updates.
 Routes:
   /              → UI wrapper (index.html)
   /artifact      → raw artifact HTML content (served as-is)
   /update        → POST to save updated artifact HTML
   /events        → SSE stream for live reload signals
   /notify-open    → POST to trigger browser auto-open
+  /history/<filename> → serve archived artifact files
+  /artifacts.json → history manifest
 """
 import http.server
 import socketserver
@@ -17,11 +19,15 @@ import signal
 import json
 import threading
 import subprocess
+import re
 
 PORT = 8765
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 INDEX_FILE = os.path.join(DIRECTORY, "index.html")
 ARTIFACT_FILE = os.path.join(DIRECTORY, "artifact.html")
+ARTIFACTS_JSON = os.path.join(DIRECTORY, "artifacts.json")
+HISTORY_DIR = os.path.join(DIRECTORY, "history")
+MAX_HISTORY = 15
 
 # In-memory cache
 _cached_index = None
@@ -38,6 +44,139 @@ _sse_lock = threading.Lock()
 # Pending auto-open flag
 _pending_open = {"mode": "square"}
 _open_lock = threading.Lock()
+
+# History management
+_history = []
+_history_lock = threading.Lock()
+
+
+def _extract_title(html_content):
+    """Extract <title> or first <h1> from HTML for readable label."""
+    if not html_content:
+        return None
+    # Try <title> first
+    match = re.search(r'<title[^>]*>([^<]+)</title>', html_content, re.IGNORECASE)
+    if match:
+        return match.group(1).strip()
+    # Try first <h1>
+    match = re.search(r'<h1[^>]*>([^<]+)</h1>', html_content, re.IGNORECASE)
+    if match:
+        return match.group(1).strip()
+    return None
+
+
+def _slugify(title):
+    """Convert title to URL-safe filename slug."""
+    if not title:
+        return "untitled"
+    # Remove HTML tags
+    title = re.sub(r'<[^>]+>', '', title)
+    # Keep only alphanumeric, spaces, hyphens
+    slug = re.sub(r'[^a-zA-Z0-9\s\-]', '', title)
+    # Replace spaces with hyphens and lowercase
+    slug = '-'.join(slug.split())[:50]
+    return slug.lower() or "untitled"
+
+
+def _load_history():
+    """Load history manifest from artifacts.json."""
+    global _history
+    with _history_lock:
+        if os.path.exists(ARTIFACTS_JSON):
+            try:
+                with open(ARTIFACTS_JSON, "r", encoding="utf-8") as f:
+                    _history = json.load(f)
+            except (json.JSONDecodeError, IOError):
+                _history = []
+        else:
+            _history = []
+
+
+def _save_history():
+    """Save history manifest to artifacts.json."""
+    with _history_lock:
+        try:
+            with open(ARTIFACTS_JSON, "w", encoding="utf-8") as f:
+                json.dump(_history, f, indent=2)
+        except IOError as e:
+            print(f"[{time.strftime('%H:%M:%S')}] Failed to save history: {e}")
+
+
+def _archive_artifact():
+    """Copy current artifact.html to history/<timestamp>-<slug>.html, prune oldest beyond MAX_HISTORY."""
+    global _history
+
+    if not os.path.exists(ARTIFACT_FILE):
+        return
+
+    # Read current artifact
+    try:
+        with open(ARTIFACT_FILE, "r", encoding="utf-8") as f:
+            content = f.read()
+    except IOError:
+        return
+
+    # Extract title and create slug
+    title = _extract_title(content)
+    slug = _slugify(title)
+    timestamp = time.strftime("%Y%m%d-%H%M%S")
+    filename = f"{timestamp}-{slug}.html"
+    filepath = os.path.join(HISTORY_DIR, filename)
+
+    # Ensure history directory exists
+    os.makedirs(HISTORY_DIR, exist_ok=True)
+
+    # Write archived file
+    try:
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write(content)
+    except IOError:
+        return
+
+    # Update history list
+    with _history_lock:
+        # Remove existing entry with same filename (if any)
+        _history = [h for h in _history if h.get("filename") != filename]
+        # Add new entry at the front
+        _history.insert(0, {
+            "filename": filename,
+            "title": title or "Untitled",
+            "timestamp": int(time.time()),
+            "path": filepath
+        })
+        # Prune oldest beyond MAX_HISTORY
+        if len(_history) > MAX_HISTORY:
+            pruned = _history[MAX_HISTORY:]
+            _history = _history[:MAX_HISTORY]
+            # Remove pruned files from disk
+            for item in pruned:
+                try:
+                    if os.path.exists(item.get("path", "")):
+                        os.remove(item.get("path", ""))
+                except OSError:
+                    pass
+
+    _save_history()
+
+    # Broadcast history-update to all SSE clients
+    _broadcast_history_update()
+
+
+def _broadcast_history_update():
+    """Broadcast history-update SSE event with full items list."""
+    with _history_lock:
+        items = [{"filename": h["filename"], "title": h["title"], "timestamp": h["timestamp"]} for h in _history]
+    payload = json.dumps({"type": "history-update", "items": items})
+    msg = f"event: history-update\ndata: {payload}\n\n"
+    with _sse_lock:
+        dead = []
+        for client in _sse_clients:
+            try:
+                client(msg.encode("utf-8"))
+            except Exception:
+                dead.append(client)
+        for client in dead:
+            _sse_clients.remove(client)
 
 
 def _read_file(path, cache_tuple):
@@ -119,6 +258,13 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(b"event: connected\ndata: {\"type\":\"connected\"}\n\n")
             self.wfile.flush()
 
+            # Send current history on connect
+            with _history_lock:
+                items = [{"filename": h["filename"], "title": h["title"], "timestamp": h["timestamp"]} for h in _history]
+            history_payload = json.dumps({"type": "history-update", "items": items})
+            self.wfile.write(f"event: history-update\ndata: {history_payload}\n\n".encode("utf-8"))
+            self.wfile.flush()
+
             # Keep connection alive, send ping every 25s
             try:
                 while True:
@@ -130,6 +276,23 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                     if sender in _sse_clients:
                         _sse_clients.remove(sender)
             return
+        elif self.path == "/artifacts.json":
+            # Serve history manifest
+            with _history_lock:
+                items = [{"filename": h["filename"], "title": h["title"], "timestamp": h["timestamp"]} for h in _history]
+            self._send(200, "application/json", json.dumps(items).encode())
+        elif self.path.startswith("/history/"):
+            # Serve archived artifact file
+            filename = self.path[9:]  # Remove "/history/" prefix
+            # Security: prevent directory traversal
+            filename = os.path.basename(filename)
+            filepath = os.path.join(HISTORY_DIR, filename)
+            if os.path.exists(filepath) and os.path.isfile(filepath):
+                with open(filepath, "r", encoding="utf-8") as f:
+                    content = f.read()
+                self._send(200, "text/html; charset=utf-8", content)
+            else:
+                self._send(404, "text/plain", b"Not found")
         else:
             super().do_GET()
 
@@ -138,6 +301,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             content_length = int(self.headers.get("Content-Length", 0))
             body = self.rfile.read(content_length).decode("utf-8")
             try:
+                # Archive the old artifact before writing new content
+                _archive_artifact()
+
                 with open(ARTIFACT_FILE, "w", encoding="utf-8") as f:
                     f.write(body)
                 global _mtime_artifact, _cached_artifact, _cached_etag_artifact
@@ -224,15 +390,21 @@ class ThreadedHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
 
 
 def run_server():
+    # Load history on startup
+    _load_history()
+
     server = ThreadedHTTPServer(("", PORT), Handler)
-    print(f"Artifact Preview v2.0 server running on http://localhost:{PORT}")
-    print(f"  /            → Preview UI")
-    print(f"  /artifact    → Raw artifact HTML")
-    print(f"  /update      → POST to save artifact + broadcast reload")
-    print(f"  /events      → SSE stream for live reload")
-    print(f"  /notify-open → POST to trigger browser open")
+    print(f"Artifact Preview v4.0 server running on http://localhost:{PORT}")
+    print(f"  /              → Preview UI")
+    print(f"  /artifact      → Raw artifact HTML")
+    print(f"  /update        → POST to save artifact + broadcast reload")
+    print(f"  /events        → SSE stream for live reload")
+    print(f"  /notify-open   → POST to trigger browser open")
+    print(f"  /history/<file>→ Serve archived artifacts")
+    print(f"  /artifacts.json→ History manifest")
     print(f"\nServing: {DIRECTORY}")
-    print("Press Ctrl+C to stop\n")
+    print(f"History: {len(_history)} items (max {MAX_HISTORY})")
+    print("\nPress Ctrl+C to stop\n")
 
     for sig in (signal.SIGINT, signal.SIGTERM):
         signal.signal(sig, lambda s, f: (print("\nShutting down..."), server.shutdown()))
