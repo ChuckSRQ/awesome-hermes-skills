@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🪽 Artifact Preview v3.1
+# 🪽 Artifact Preview v4.0
 
 ### **Write code. See it live. Instantly. 🔥**
 
@@ -47,6 +47,15 @@ Grab a high-res Retina capture 📸 that sends directly to macOS Preview or your
 🎨 Modern Design System
 Featuring Instrument Sans, vibrant violet accents, and warm white backgrounds. Every artifact looks like a premium product right out of the box. ✨
 
+🔍 Recent Artifacts Dropdown
+Instantly switch between current and previous previews without losing work. New generations never overwrite old ones — a clean dropdown in the toolbar gives one-click access to your history. 📜
+
+💾 Persistent History
+Automatic readable backups with timestamped names. Every artifact is safely archived and accessible from the dropdown — no more lost previews. 🗂️
+
+🔄 Cross-Platform Ready
+macOS unchanged with full polish. Foundation added for Windows and Linux via `launcher.py` with `screeninfo` and `PyWinCtl` support. 🖥️
+
 🔌 Zero Dependencies
 A single, lightweight HTML file. No npm, no complex build steps, and no messy config files. It just works. 🔌✨
 
@@ -56,17 +65,16 @@ No profile pickers, no annoying blank tabs, and zero Chrome drama. It opens a de
 🍎 Proper macOS Integration
 Uses Swift (NSScreen.main) for perfect logical screen sizing and AppleScript for precise window bounds. No dual-monitor bleed. 🎯
 
-## 🆕 What's New in v3.1 🚀
-Artifact Preview v3.1 adds the two missing runtime files to the distribution package — the skill is now fully self-contained and plug-and-play. 💥
+## 🆕 What's New in v4.0 🚀
+Artifact Preview v4.0 adds persistent history and cross-platform support while keeping the elegant simplicity you love. 💥
 
-📦 **Complete Distribution Package:** `server.py` and `share-screenshot.py` are now included in the skill directory. Clone the repo, copy the files, and everything works — no separate downloads required.
+📜 **Recent Artifacts Dropdown:** A clean "Recent" menu in the toolbar gives instant access to the last ~10 previews. New AI content becomes live; the previous version moves to the dropdown — never lose work again.
 
-🛠️ **v3.0 Foundations:** All the improvements from v3.0 carry forward:
-- Three specialized windows (Portrait, Horizontal, Full)
-- Auto-Detect mode that reads your HTML
-- Native desktop feel with Swift NSScreen precision
-- Bypasses Chrome profile dialogs entirely
-- Adaptive "hug" UI that shrinks to fit widgets
+🗂️ **Persistent History:** Every artifact is automatically archived with readable timestamped names. Click any past version to load it back into the preview.
+
+⚡ **Sub-Second Performance:** All v3 performance characteristics preserved — same SSE live reload, same instant updates.
+
+🖥️ **Cross-Platform Foundation:** macOS unchanged. Windows and Linux support added via `launcher.py` with optional `screeninfo` and `PyWinCtl` libraries.
 
 ---
 
@@ -97,19 +105,16 @@ You: "Build me a fitness app dashboard"
 ## 📦 Installation
 
 ```bash
-# Clone or copy the skill
-mkdir -p ~/artifact-preview
-cp skills/productivity/artifact-preview/*.sh ~/artifact-preview/
-cp skills/productivity/artifact-preview/*.applescript ~/artifact-preview/
-cp skills/productivity/artifact-preview/server.py ~/artifact-preview/
-cp skills/productivity/artifact-preview/index.html ~/artifact-preview/
-chmod +x ~/artifact-preview/open-chrome.sh
+# Run the install script
+bash ~/artifact-preview/install.sh
 
 # Start the server (one time, runs in background)
 cd ~/artifact-preview && python3 server.py &
 ```
 
-> 🍎 **macOS only** — requires macOS 12+ (Monterey) and Google Chrome. First run will prompt for Automation permissions (System Preferences → Privacy & Security → Automation → grant to Terminal).
+> 🍎 **macOS** — requires macOS 12+ and Google Chrome. First run prompts for Automation permissions (System Preferences → Privacy & Security → Automation → grant to Terminal).
+>
+> 🪟 **Windows / 🐧 Linux** — also run: `pip install screeninfo pywinctl`
 
 ---
 
@@ -200,12 +205,13 @@ Font: **Instrument Sans** via Google Fonts.
 
 ## ⚙️ Requirements
 
-| Requirement | Why |
-|-------------|-----|
-| 🍎 **macOS 12+** | AppleScript window management, `NSScreen` API |
-| 🌐 **Google Chrome** | Target browser for preview windows |
-| 🐍 **Python 3.8+** | HTTP server with Server-Sent Events |
-| 🔐 **Automation permissions** | Terminal needs access to control Chrome |
+|| Requirement | Why |
+||-------------|-----|
+|| 🍎 **macOS 12+** | AppleScript window management, `NSScreen` API |
+|| 🪟 **Windows / 🐧 Linux** | `pip install screeninfo pywinctl` for window control |
+|| 🌐 **Google Chrome** | Target browser for preview windows |
+|| 🐍 **Python 3.8+** | HTTP server with Server-Sent Events |
+|| 🔐 **Automation permissions** | Terminal needs access to control Chrome |
 
 ---
 
