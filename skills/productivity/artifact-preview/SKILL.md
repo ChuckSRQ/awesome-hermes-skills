@@ -1,6 +1,6 @@
 ---
 name: artifact-preview
-description: "Generate HTML/CSS/JS artifacts and open live previews instantly (macOS only — requires Chrome + AppleScript). Auto-opens browser after writing artifact. Three launch modes — Portrait (phone), Horizontal (video), Full (main display). Card auto-fits to content size. No mode toggle. Includes screenshot-to-Preview sharing and inline HTML editor. v3.0."
+description: "🪽 Write code, see it live, instantly. Auto-opens Chrome in portrait, horizontal, or full mode — auto-detected from your HTML. Live reload, inline editor, retina screenshots. macOS + Chrome. v3.0."
 triggers:
   - make
   - build
@@ -76,14 +76,13 @@ ENDOFFILE
 After saving, **auto-open the browser**:
 
 ```bash
-# For phone/mobile artboards → portrait window (~430×844)
-bash ~/artifact-preview/open-chrome.sh portrait
+# Auto-detect mode (reads meta tag or HTML heuristics)
+bash ~/artifact-preview/open-chrome.sh
 
-# For video/landscape content → horizontal window (~1240×720)
-bash ~/artifact-preview/open-chrome.sh horizontal
-
-# For everything else → maximized Chrome window
-bash ~/artifact-preview/open-chrome.sh full
+# Or override explicitly:
+bash ~/artifact-preview/open-chrome.sh portrait    # phone (~430×844)
+bash ~/artifact-preview/open-chrome.sh horizontal  # video (~1240×720)
+bash ~/artifact-preview/open-chrome.sh full         # main display
 ```
 
 **IMPORTANT**: Always use `bash ~/artifact-preview/open-chrome.sh` — NOT `open "http://..."` which opens a full tab regardless.
@@ -100,11 +99,12 @@ Overwrite `~/artifact-preview/artifact.html`, then click **Refresh** in the tool
 
 | Content type | Launch command | Result |
 |-------------|---------------|--------|
+| Auto-detect (default) | `bash ~/artifact-preview/open-chrome.sh` | Reads meta tag or uses heuristics |
 | Phone/mobile artboards, Instagram, tall UI | `bash ~/artifact-preview/open-chrome.sh portrait` | Phone-sized window, bounds {60,60,490,904} |
 | Video, landscape layouts, wide components | `bash ~/artifact-preview/open-chrome.sh horizontal` | Video-sized window, bounds {60,60,1300,740} |
-| Full websites, dashboards, complete layouts | `bash ~/artifact-preview/open-chrome.sh full` | Maximized Chrome window (screen bounds) |
+| Full websites, dashboards, complete layouts | `bash ~/artifact-preview/open-chrome.sh full` | New window sized to main display |
 
-**Default is `full`** — calling `open-chrome.sh` with no argument opens maximized.
+**Default is auto-detect** — calling `open-chrome.sh` with no argument reads the artifact's meta tag or content heuristics to pick the best mode. You can always override by passing `portrait`, `horizontal`, or `full` explicitly.
 
 There is **no mode toggle** in the toolbar. The window size IS the mode. The card is responsive and adapts to whatever window it's in.
 
@@ -413,11 +413,26 @@ end run
 
 ---
 
+## Auto-detect mode
+
+Calling `bash ~/artifact-preview/open-chrome.sh` with **no arguments** auto-detects the best window mode:
+
+1. **Meta tag** (explicit): `<meta name="preview-mode" content="portrait|horizontal|full">` in the HTML → uses that mode
+2. **Heuristic — full-page indicators**: `<nav>`, `<footer>`, or `<header>` tags → `full`
+3. **Heuristic — mobile portrait**: `viewport width=device-width` + narrow max-width or `min-height: 100vh` → `portrait`
+4. **Default**: `horizontal`
+
+**Best practice**: Add `<meta name="preview-mode" content="portrait">` to the artifact HTML when you know the mode. The agent should include this tag automatically based on the content type.
+
+---
+
 ## What's new in v3.0
 
-- **Three content-shaped modes** — `portrait` (phone, ~430×844), `horizontal` (video, ~1240×720), `full` (maximized window)
-- **`full` now opens a maximized window** — not a new tab
-- **Auto-launches Chrome** if not already running
+- **Auto-detect mode** — no argument needed, reads meta tag or uses HTML heuristics
+- **Three content-shaped modes** — `portrait` (phone, ~430×844), `horizontal` (video, ~1240×720), `full` (main display via NSScreen)
+- **`full` opens a new maximized window** — not a tab in the existing window
+- **Auto-launches Chrome** via `open -a` (no profile picker dialog)
+- **Dual-monitor safe** — `NSScreen.main` returns primary display only
 - **Try/retry error handling** — recovers if Chrome is unresponsive
 - **Shell wrapper validates modes** — exits code 2 on invalid input
 - **macOS Automation permission** note added to troubleshooting
