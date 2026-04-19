@@ -124,6 +124,33 @@
 
         .toolbar-btn svg { width: 15px; height: 15px; }
 
+        /* Recent artifacts dropdown */
+        .toolbar-select {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            font-size: 11px;
+            font-family: inherit;
+            font-weight: 500;
+            padding: 5px 8px;
+            cursor: pointer;
+            outline: none;
+            min-width: 140px;
+            max-width: 200px;
+        }
+
+        .toolbar-select:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .toolbar-select option {
+            background: var(--surface-2);
+            color: var(--text);
+            padding: 4px;
+        }
+
         [data-tip] { position: relative; }
         [data-tip]::after {
             content: attr(data-tip);
@@ -389,6 +416,11 @@
     </div>
 
     <div class="toolbar-divider"></div>
+
+    <!-- Recent Artifacts Dropdown -->
+    <select id="recent-dropdown" class="toolbar-select">
+        <option value="">— Recent —</option>
+    </select>
 
     <!-- Screenshot -->
     <button class="toolbar-btn" id="btn-screenshot" data-tip="Screenshot + Share">
@@ -763,6 +795,60 @@
             e.preventDefault();
             btnRefresh.click();
         }
+    });
+
+    // ── Recent Artifacts Dropdown ──
+    const recentDropdown = $('recent-dropdown');
+
+    function formatRelativeTime(ts) {
+        if (!ts) return '';
+        const now = Date.now() / 1000;
+        const diff = now - ts;
+        if (diff < 60) return 'just now';
+        if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
+        if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+        const d = new Date(ts * 1000);
+        return (d.getMonth() + 1) + '/' + d.getDate();
+    }
+
+    function populateHistory(items) {
+        // Clear existing options except first placeholder
+        recentDropdown.innerHTML = '<option value="">— Recent —</option>';
+        if (!items || items.length === 0) return;
+        items.forEach((item, i) => {
+            const opt = document.createElement('option');
+            opt.value = item.filename;
+            const label = item.title || 'Untitled';
+            const time = formatRelativeTime(item.timestamp);
+            opt.textContent = (i === 0 ? '● ' : '') + label + (time ? ' — ' + time : '');
+            recentDropdown.appendChild(opt);
+        });
+    }
+
+    // Load history on page load
+    fetch('/artifacts.json')
+        .then(r => r.json())
+        .then(items => populateHistory(items))
+        .catch(() => {});
+
+    // Update dropdown on SSE history-update
+    if (evtSource) {
+        evtSource.addEventListener('history-update', (e) => {
+            try {
+                const data = JSON.parse(e.data);
+                populateHistory(data.items || []);
+            } catch {}
+        });
+    }
+
+    // Switch to archived artifact on dropdown change
+    recentDropdown.addEventListener('change', () => {
+        const filename = recentDropdown.value;
+        if (!filename) {
+            artifactFrame.src = 'artifact.html?t=' + Date.now();
+            return;
+        }
+        artifactFrame.src = '/history/' + filename + '?t=' + Date.now();
     });
 
     // ── Artifact iframe load ──
