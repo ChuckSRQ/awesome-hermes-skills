@@ -2,7 +2,7 @@
 
 # 🪽 Artifact Preview v3.0
 
-### **Write code. See it live. Instantly.**
+### **Write code. See it live. Instantly. 🔥**
 
 *The "Claude Artifacts" experience — for any AI agent.*
 
@@ -18,56 +18,47 @@
 
 ## 🎬 The Pitch
 
-You're working with an AI agent. You say *"build me a dashboard"* — and you get... a wall of code you have to copy, paste, save, and open. Every. Single. Time.
+You're working with an AI agent. You say *"build me a dashboard"* — and you get... a wall of code you have to copy, paste, save, and open. **Every. Single. Time. 😩**
 
-**Artifact Preview kills that loop.**
+**Artifact Preview kills that loop. 🔥**
 
-Your agent writes HTML/CSS/JS → the browser opens **automatically** → you see a polished, live, interactive preview. Update the code? It reloads in real-time. No refresh buttons. No manual steps. No friction.
+Your agent writes HTML/CSS/JS → the browser opens **automatically** → you see a polished, live, interactive preview. Update the code? It reloads in real-time. No refresh buttons. No manual steps. **Zero friction. ⚡**
 
 > 💡 **One file. Zero config. Instant preview.**
 
 ---
 
-## 🆕 What's New in v3.0
+## 🔥 Features
 
-Artifact Preview just got a major upgrade. Here's everything that changed from v2.0:
-
-| Feature | v2.0 | v3.0 |
-|---------|------|------|
-| Window modes | 2 (square + full tab) | **3 — portrait, horizontal, full** |
-| Mode selection | Manual (pick at launch) | **Auto-detect from HTML content** |
-| Full screen | Opens a new tab | **New window, fills primary display** |
-| Multi-monitor | Spans across all screens | **Main display only via `NSScreen` API** |
-| Chrome launch | Profile picker + blank tabs | **Clean launch, no profile dialog** |
-| Card behavior | Always 960px max | **Hugs small widgets, fills for websites** |
-| Variable naming | `mode` (Chrome OSA conflict) | **`theMode` (bug fix)** |
-| Screen detection | Finder `desktop bounds` | **Swift `NSScreen.main` (correct logical size)** |
-
-### The headline features
-
-🧠 **Auto-detect mode** — The launcher reads your HTML and picks the right window. No arguments needed. Add a `<meta name="preview-mode" content="portrait">` tag for explicit control, or let heuristics decide.
-
-🖥️ **Three content-shaped windows** — Portrait (~430×844) for phone apps. Horizontal (~1240×720) for dashboards. Full (fills your main display) for websites. Each mode creates a purpose-built window — not one-size-fits-all tabs.
-
-📐 **Smart card that adapts** — Small widgets get a compact centered card with rounded corners. Full-width websites expand edge-to-edge with no border radius. The preview shape-shifts to match what you built.
-
-🍎 **Proper macOS integration** — Uses `NSScreen.main` via Swift for correct logical screen size, `open -a 'Google Chrome'` for clean profile launches, and AppleScript for precise window bounds. No more profile pickers, blank tabs, or dual-monitor bleed.
+| | Feature | What it does |
+|:-:|---------|-------------|
+| 🧠 | **Auto-detect mode** | Reads your HTML and picks the right window — phone? portrait. dashboard? horizontal. website? maximized. No arguments needed. |
+| 🖥️ | **Three content-shaped windows** | Portrait (~430×844) 📱 · Horizontal (~1240×720) 📺 · Full (fills your main display) 🖥️ — not one-size-fits-all tabs |
+| 📐 | **Smart card that hugs your content** | Small widgets get a compact centered card. Full-width websites expand edge-to-edge. Adapts to what you built. |
+| ⚡ | **Sub-second live reload** | Save code → instant update via Server-Sent Events. No polling. No delay. No refresh button. |
+| ✏️ | **Built-in code editor** | Code / Split / Preview tabs. Edit HTML inline, save, see changes. `Cmd+Shift+E` to toggle. |
+| 📸 | **One-click screenshot + share** | Retina capture → macOS Preview → system share sheet. AirDrop, Messages, Mail — whatever. |
+| 🎨 | **Modern design system** | Instrument Sans, violet accent, warm white backgrounds. Every artifact looks polished out of the box. |
+| 🔌 | **Zero dependencies** | One HTML file. No npm. No build step. No config files. Just works. |
+| 🧹 | **Clean Chrome launch** | No profile picker. No blank tabs. No Chrome drama. Opens a purpose-built window and gets out of your way. |
+| 🍎 | **Proper macOS integration** | `NSScreen.main` via Swift for correct logical screen size. AppleScript for precise window bounds. No dual-monitor bleed. |
 
 ---
 
-## ✨ The Magic Trick
+## 🆕 What's New in v3.0 🔥
 
-🧠 **Auto-detect mode** — just write your HTML. The launcher reads your artifact and picks the right window size. Phone app? Portrait. Dashboard? Horizontal. Full website? Maximized. No arguments needed.
+Artifact Preview just got a **major upgrade**. Here's everything that changed:
 
-🖥️ **Three content-shaped windows** — not one-size-fits-all tabs. Portrait for mobile artboards (~430×844), horizontal for dashboards (~1240×720), full for complete websites (fills your primary display).
-
-📐 **Smart card that hugs your content** — small widgets get a compact centered card. Full-width websites expand edge-to-edge. The preview adapts to what you built, not the other way around.
-
-⚡ **Sub-second live reload** — save your code and watch it update instantly via Server-Sent Events. No polling. No delay. No refresh button.
-
-✏️ **Built-in code editor** — Code / Split / Preview tabs. Edit HTML inline, save, see changes. `Cmd+Shift+E` to toggle.
-
-📸 **One-click screenshot + share** — captures at Retina resolution, opens in macOS Preview with the full system share sheet. AirDrop, Messages, Mail — whatever.
+| Feature | v2.0 🤷 | v3.0 🔥 |
+|---------|---------|---------|
+| Window modes | 2 (square + full tab) | **3 — portrait, horizontal, full** |
+| Mode selection | Manual (pick at launch) | **Auto-detect from HTML content** 🧠 |
+| Full screen | Opens a new tab | **New window, fills primary display** 🖥️ |
+| Multi-monitor | Spans across all screens | **Main display only via `NSScreen` API** 🍎 |
+| Chrome launch | Profile picker + blank tabs 😬 | **Clean launch, no profile dialog** ✨ |
+| Card behavior | Always 960px max | **Hugs small widgets, fills for websites** 📐 |
+| Variable naming | `mode` (Chrome OSA conflict 🐛) | **`theMode` (bug fix)** |
+| Screen detection | Finder `desktop bounds` | **Swift `NSScreen.main` (correct logical size)** 🎯 |
 
 ---
 
@@ -80,16 +71,16 @@ You: "Build me a fitness app dashboard"
           ↓
    Saves to ~/artifact-preview/artifact.html
           ↓
-   Chrome opens automatically in portrait mode
+   Chrome opens automatically in portrait mode 📱
           ↓
-   You see a live, polished, interactive app
+   You see a live, polished, interactive app ✨
           ↓
    "Add a heart rate widget"
           ↓
-   Agent updates the file → live reload → instant update
+   Agent updates the file → live reload → instant update ⚡
 ```
 
-**Total time from idea to preview: ~3 seconds.**
+**Total time from idea to preview: ~3 seconds. 🚀**
 
 ---
 
@@ -114,7 +105,7 @@ cd ~/artifact-preview && python3 server.py &
 
 ## 🚀 Quick Start
 
-### Auto mode (recommended)
+### Auto mode (recommended) ⚡
 
 ```bash
 # Just launch — it detects the right window size from your content
@@ -135,13 +126,13 @@ bash ~/artifact-preview/open-chrome.sh full        # 🖥️ maximized
 
 ## 🪟 Launch Modes
 
-| Mode | Size | Emoji | Best For |
-|------|------|:-----:|----------|
+| Mode | Size | Emoji | Best For 🔥 |
+|------|------|:-----:|-------------|
 | **Portrait** | ~430×844 | 📱 | Phone apps, mobile UI, Instagram-style, fitness apps |
 | **Horizontal** | ~1240×720 | 📺 | Dashboards, analytics, video layouts, data viz |
 | **Full** | Main display | 🖥️ | Websites, landing pages, full applications |
 
-### How auto-detect works
+### How auto-detect works 🧠
 
 1. **Meta tag** — `<meta name="preview-mode" content="portrait|horizontal|full">` (explicit, always wins)
 2. **Heuristic** — finds `<nav>`/`<footer>` → full, mobile viewport + narrow layout → portrait
@@ -149,50 +140,34 @@ bash ~/artifact-preview/open-chrome.sh full        # 🖥️ maximized
 
 ---
 
-## 🎯 Features
-
-| Feature | Details |
-|---------|---------|
-| 🧠 **Auto-detect** | Reads your HTML to pick the right window mode |
-| 🖥️ **Three modes** | Portrait, horizontal, full — content-shaped windows |
-| ⚡ **Live reload** | SSE pushes updates instantly, zero latency |
-| 📐 **Smart card** | Hugs small widgets, fills for full websites |
-| ✏️ **Inline editor** | Code / Split / Preview with keyboard shortcuts |
-| 📸 **Screenshot** | Retina capture → macOS Preview → system share |
-| 🎨 **Design system** | Instrument Sans, violet accent, modern CSS |
-| 🔌 **Zero deps** | One HTML file, no npm, no build step |
-| 🧹 **Clean launch** | No profile picker, no blank tabs, no Chrome drama |
-
----
-
 ## ⌨️ Keyboard Shortcuts
 
 | Shortcut | Action |
 |:--------:|--------|
-| `⌘⇧E` | Toggle HTML editor |
-| `⌘⇧S` | Save from editor |
-| `⌘⇧R` | Refresh preview |
+| `⌘⇧E` | Toggle HTML editor ✏️ |
+| `⌘⇧S` | Save from editor 💾 |
+| `⌘⇧R` | Refresh preview 🔄 |
 
 ---
 
 ## 🎨 Design Standards
 
-Every artifact should be **complete, beautiful, and interactive** — not a skeleton.
+Every artifact should be **complete, beautiful, and interactive** — not a skeleton 💀
 
 - **Real functionality** — buttons work, inputs respond, data flows
 - **Modern CSS** — flexbox/grid, CSS variables, smooth transitions, rounded corners
 - **Self-contained** — one HTML file, inline everything, Google Fonts OK
 - **Light-first** — warm white backgrounds (`#F8F7F4`) unless content demands dark
 
-### Default palette
+### Default palette 🎨
 
 | Color | Hex | Usage |
 |-------|-----|-------|
 | ⬜ Warm white | `#F8F7F4` | Background |
 | 🟪 Violet | `#8B5CF6` | Primary accent |
 | ⬛ Near-black | `#1A1A2E` | Text |
-| 🟩 Green | `#22C55E` | Success |
-| 🟥 Red | `#EF4444` | Error |
+| 🟩 Green | `#22C55E` | Success ✅ |
+| 🟥 Red | `#EF4444` | Error ❌ |
 
 Font: **Instrument Sans** via Google Fonts.
 
@@ -237,14 +212,14 @@ pkill -f "artifact-preview/server.py"
 
 # Verify it's running
 curl -s -o /dev/null -w "%{http_code}" http://localhost:8765/
-# → 200
+# → 200 ✅
 ```
 
 ---
 
 <div align="center">
 
-### Built for [Hermes Agent](https://github.com/ChuckSRQ/awesome-hermes-skills)
+### Built for [Hermes Agent](https://github.com/ChuckSRQ/awesome-hermes-skills) 🔥
 
 *Part of [Awesome Hermes Skills](https://github.com/ChuckSRQ/awesome-hermes-skills) — a curated collection of production-ready AI agent skills.*
 
