@@ -1,6 +1,6 @@
 ---
 name: artifact-preview
-description: "🪽 Write code, see it live, instantly. Auto-opens Chrome in portrait, horizontal, or full mode — auto-detected from your HTML. Live reload, inline editor, retina screenshots. macOS + Chrome. v3.0."
+description: "🪽 Write code, see it live, instantly. Auto-opens Chrome in portrait, horizontal, or full mode — auto-detected from your HTML. Live reload, inline editor, retina screenshots. macOS + Chrome. v3.1."
 triggers:
   - make
   - build
