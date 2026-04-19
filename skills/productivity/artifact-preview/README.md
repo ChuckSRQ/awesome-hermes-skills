@@ -16,49 +16,62 @@
 
 ---
 
-## 🎬 The Pitch
+🎬 The Pitch
+You’re working with an AI agent. You say "build me a dashboard" and you get... a wall of code you have to copy, paste, save, and open. Every. Single. Time. 😩
 
-You're working with an AI agent. You say *"build me a dashboard"* — and you get... a wall of code you have to copy, paste, save, and open. **Every. Single. Time. 😩**
+Artifact Preview kills that loop dead. 💀🔥
 
-**Artifact Preview kills that loop. 🔥**
+Your agent writes HTML/CSS/JS → the browser opens automatically 🚀 → you see a polished, live, interactive preview. Update the code? It reloads in real-time. No refresh buttons. No manual steps. Zero friction. ⚡
 
-Your agent writes HTML/CSS/JS → the browser opens **automatically** → you see a polished, live, interactive preview. Update the code? It reloads in real-time. No refresh buttons. No manual steps. **Zero friction. ⚡**
+💡 One file. Zero config. Instant preview. 🌈
 
-> 💡 **One file. Zero config. Instant preview.**
+🔥 Key Features
+🧠 Auto-Detect Mode
+It reads your code and intuitively picks the right window. Coding a mobile app? You get Portrait 📱. A complex dashboard? Horizontal 📺. A full website? Maximized 🖥️. No configuration needed!
 
----
+🖥️ Three Content-Shaped Windows
+Stop using one-size-fits-all tabs! Choose from Portrait (~430×844), Horizontal (~1240×720), or Full Display. It fits your content perfectly. 📐
 
-## 🔥 Features
+📐 Smart Card UI
+Small widgets get a compact, centered card 💎. Full-width websites expand edge-to-edge 🌊. The frame intelligently adapts to whatever you’ve built.
 
-| | Feature | What it does |
-|:-:|---------|-------------|
-| 🧠 | **Auto-detect mode** | Reads your HTML and picks the right window — phone? portrait. dashboard? horizontal. website? maximized. No arguments needed. |
-| 🖥️ | **Three content-shaped windows** | Portrait (~430×844) 📱 · Horizontal (~1240×720) 📺 · Full (fills your main display) 🖥️ — not one-size-fits-all tabs |
-| 📐 | **Smart card that hugs your content** | Small widgets get a compact centered card. Full-width websites expand edge-to-edge. Adapts to what you built. |
-| ⚡ | **Sub-second live reload** | Save code → instant update via Server-Sent Events. No polling. No delay. No refresh button. |
-| ✏️ | **Built-in code editor** | Code / Split / Preview tabs. Edit HTML inline, save, see changes. `Cmd+Shift+E` to toggle. |
-| 📸 | **One-click screenshot + share** | Retina capture → macOS Preview → system share sheet. AirDrop, Messages, Mail — whatever. |
-| 🎨 | **Modern design system** | Instrument Sans, violet accent, warm white backgrounds. Every artifact looks polished out of the box. |
-| 🔌 | **Zero dependencies** | One HTML file. No npm. No build step. No config files. Just works. |
-| 🧹 | **Clean Chrome launch** | No profile picker. No blank tabs. No Chrome drama. Opens a purpose-built window and gets out of your way. |
-| 🍎 | **Proper macOS integration** | `NSScreen.main` via Swift for correct logical screen size. AppleScript for precise window bounds. No dual-monitor bleed. |
+⚡ Sub-Second Live Reload
+Save your code and watch the magic happen instantly via Server-Sent Events. No polling, no delay, and zero refresh buttons. 🌬️
 
----
+✏️ Built-in Code Editor
+Effortlessly toggle between Code, Split, or Preview tabs. Edit your HTML inline and see changes immediately with a simple Cmd+Shift+E. ⌨️
 
-## 🆕 What's New in v3.0 🔥
+📸 One-Click Screenshot + Share
+Grab a high-res Retina capture 📸 that sends directly to macOS Preview or your system share sheet. AirDrop, Message, or Mail your work in a heartbeat! 🕊️
 
-Artifact Preview just got a **major upgrade**. Here's everything that changed:
+🎨 Modern Design System
+Featuring Instrument Sans, vibrant violet accents, and warm white backgrounds. Every artifact looks like a premium product right out of the box. ✨
 
-| Feature | v2.0 🤷 | v3.0 🔥 |
-|---------|---------|---------|
-| Window modes | 2 (square + full tab) | **3 — portrait, horizontal, full** |
-| Mode selection | Manual (pick at launch) | **Auto-detect from HTML content** 🧠 |
-| Full screen | Opens a new tab | **New window, fills primary display** 🖥️ |
-| Multi-monitor | Spans across all screens | **Main display only via `NSScreen` API** 🍎 |
-| Chrome launch | Profile picker + blank tabs 😬 | **Clean launch, no profile dialog** ✨ |
-| Card behavior | Always 960px max | **Hugs small widgets, fills for websites** 📐 |
-| Variable naming | `mode` (Chrome OSA conflict 🐛) | **`theMode` (bug fix)** |
-| Screen detection | Finder `desktop bounds` | **Swift `NSScreen.main` (correct logical size)** 🎯 |
+🔌 Zero Dependencies
+A single, lightweight HTML file. No npm, no complex build steps, and no messy config files. It just works. 🔌✨
+
+🧹 Clean Chrome Launch
+No profile pickers, no annoying blank tabs, and zero Chrome drama. It opens a dedicated window and stays out of your way. 🧼
+
+🍎 Proper macOS Integration
+Uses Swift (NSScreen.main) for perfect logical screen sizing and AppleScript for precise window bounds. No dual-monitor bleed. 🎯
+
+🆕 What’s New in v3.0 🚀
+Artifact Preview v3.0 is a massive leap forward. We’ve turned the "v2.0 shrug" into a v3.0 firestorm! 💥
+
+💎 Enhanced Windowing: Upgraded from two basic modes to three specialized windows (Portrait, Horizontal, and Full).
+
+🧠 Deep Intelligence: We ditched manual selection for Auto-Detect, which analyzes your HTML to choose the best layout for you.
+
+🖥️ Native Desktop Feel: "Full Screen" now launches a dedicated window on your primary display rather than just another tab.
+
+🎯 Surgical Precision: We moved from basic Finder bounds to the Swift NSScreen API for pixel-perfect accuracy on high-density displays. 🍎
+
+✨ Frictionless Flow: We’ve completely bypassed the Chrome profile dialogs for a truly clean launch.
+
+📐 Adaptive "Hug" UI: The interface now hugs your widgets instead of forcing a rigid 960px container. 🫂
+
+🐛 Total Stability: Fixed internal naming conflicts to ensure seamless performance with Chrome OSA. 🛠️
 
 ---
 
