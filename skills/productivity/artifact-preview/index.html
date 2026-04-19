@@ -124,6 +124,28 @@
 
         .toolbar-btn svg { width: 15px; height: 15px; }
 
+        /* Recent dropdown */
+        .toolbar-select {
+            appearance: none;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 500;
+            font-family: inherit;
+            padding: 4px 28px 4px 10px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%236B7A99' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            min-width: 110px;
+        }
+
+        .toolbar-select:hover { border-color: var(--accent); color: var(--text); }
+        .toolbar-select:focus { outline: none; border-color: var(--accent); }
+
         [data-tip] { position: relative; }
         [data-tip]::after {
             content: attr(data-tip);
@@ -390,6 +412,11 @@
 
     <div class="toolbar-divider"></div>
 
+    <!-- Recent Artifacts Dropdown -->
+    <select id="recent-dropdown" class="toolbar-select">
+        <option value="">— Recent —</option>
+    </select>
+
     <!-- Screenshot -->
     <button class="toolbar-btn" id="btn-screenshot" data-tip="Screenshot + Share">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -510,6 +537,44 @@
     }
 
     connectSSE();
+
+    // ── Recent Artifacts Dropdown ──
+    const recentDropdown = $('recent-dropdown');
+
+    function formatRelativeTime(ts) {
+        const delta = Date.now() / 1000 - ts;
+        if (delta < 60) return 'just now';
+        if (delta < 3600) return Math.floor(delta / 60) + 'm ago';
+        if (delta < 86400) return Math.floor(delta / 3600) + 'h ago';
+        const d = new Date(ts * 1000);
+        return (d.getMonth() + 1) + '/' + d.getDate();
+    }
+
+    function populateHistory(items) {
+        recentDropdown.innerHTML = '<option value="">— Recent —</option>';
+        items.forEach(item => {
+            const opt = document.createElement('option');
+            opt.value = '/history/' + item.filename;
+            opt.textContent = item.title + ' — ' + formatRelativeTime(item.timestamp);
+            recentDropdown.appendChild(opt);
+        });
+    }
+
+    // Load history manifest on startup
+    fetch('artifacts.json').then(r => r.json()).then(populateHistory).catch(() => {});
+
+    // Listen for SSE history-update events
+    evtSource.addEventListener('history-update', e => {
+        const data = JSON.parse(e.data);
+        populateHistory(data.items || []);
+    });
+
+    // Switch preview iframe on dropdown change
+    recentDropdown.addEventListener('change', () => {
+        const val = recentDropdown.value;
+        if (!val) return;
+        artifactFrame.src = val + '?t=' + Date.now();
+    });
 
     // ── Tab switching via body classes ──
     // Tabs live in the toolbar so they work even when editor-panel is hidden (preview-tab)

@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
-Artifact Preview Server v2.0 — Fast caching HTTP server with SSE for live updates.
+Artifact Preview Server v4.0 — Fast caching HTTP server with SSE for live updates + history.
 Routes:
   /              → UI wrapper (index.html)
   /artifact      → raw artifact HTML content (served as-is)
   /update        → POST to save updated artifact HTML
-  /events        → SSE stream for live reload signals
-  /notify-open    → POST to trigger browser auto-open
+  /events        → SSE stream for live reload signals + history-update
+  /notify-open   → POST to trigger browser auto-open
+  /history/<filename> → serve archived artifact
 """
 import http.server
 import socketserver
@@ -17,11 +18,15 @@ import signal
 import json
 import threading
 import subprocess
+import re
 
 PORT = 8765
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 INDEX_FILE = os.path.join(DIRECTORY, "index.html")
 ARTIFACT_FILE = os.path.join(DIRECTORY, "artifact.html")
+HISTORY_DIR = os.path.join(DIRECTORY, "history")
+ARTIFACTS_JSON = os.path.join(DIRECTORY, "artifacts.json")
+MAX_HISTORY = 15
 
 # In-memory cache
 _cached_index = None
@@ -38,6 +43,81 @@ _sse_lock = threading.Lock()
 # Pending auto-open flag
 _pending_open = {"mode": "square"}
 _open_lock = threading.Lock()
+
+# History manifest
+_history = []
+_history_lock = threading.Lock()
+
+
+def _extract_title(html_content):
+    """Extract readable title from HTML for history labeling."""
+    m = re.search(r'<title[^>]*>([^<]+)</title>', html_content, re.IGNORECASE)
+    if m:
+        return m.group(1).strip()[:60]
+    m = re.search(r'<h1[^>]*>([^<]+)</h1>', html_content, re.IGNORECASE)
+    if m:
+        return m.group(1).strip()[:60]
+    return "Untitled"
+
+
+def _slugify(title):
+    """Convert title to a URL-safe slug."""
+    s = re.sub(r'[^\w\s-]', '', title).strip().lower()
+    s = re.sub(r'[-\s]+', '-', s)
+    return s[:40]
+
+
+def _load_history():
+    """Load history manifest from disk."""
+    global _history
+    if os.path.exists(ARTIFACTS_JSON):
+        try:
+            with open(ARTIFACTS_JSON, 'r', encoding='utf-8') as f:
+                _history = json.load(f)
+        except Exception:
+            _history = []
+
+
+def _save_history():
+    """Persist history manifest to disk."""
+    with open(ARTIFACTS_JSON, 'w', encoding='utf-8') as f:
+        json.dump(_history, f, indent=2)
+
+
+def _archive_artifact(html_content):
+    """Archive current artifact.html to history/ with timestamped name. Returns entry dict."""
+    os.makedirs(HISTORY_DIR, exist_ok=True)
+    ts = time.strftime('%Y%m%d-%H%M%S')
+    title = _extract_title(html_content)
+    slug = _slugify(title)
+    filename = f"{ts}-{slug}.html"
+    filepath = os.path.join(HISTORY_DIR, filename)
+
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write(html_content)
+
+    entry = {
+        "filename": filename,
+        "title": title,
+        "timestamp": time.time(),
+        "size": len(html_content.encode('utf-8'))
+    }
+
+    with _history_lock:
+        _history.insert(0, entry)
+        # Prune to MAX_HISTORY
+        if len(_history) > MAX_HISTORY:
+            pruned = _history[MAX_HISTORY:]
+            _history = _history[:MAX_HISTORY]
+            for item in pruned:
+                path = os.path.join(HISTORY_DIR, item['filename'])
+                try:
+                    os.remove(path)
+                except Exception:
+                    pass
+
+    _save_history()
+    return entry
 
 
 def _read_file(path, cache_tuple):
@@ -130,6 +210,17 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                     if sender in _sse_clients:
                         _sse_clients.remove(sender)
             return
+        elif self.path.startswith("/history/"):
+            # Serve archived artifact file
+            filename = self.path[9:]  # strip "/history/"
+            safe_path = os.path.normpath(os.path.join(HISTORY_DIR, filename))
+            if not safe_path.startswith(HISTORY_DIR) or not os.path.exists(safe_path):
+                self._send(404, "text/plain", b"Not found")
+                return
+            with open(safe_path, "r", encoding="utf-8") as f:
+                content = f.read().encode("utf-8")
+            self._send(200, "text/html; charset=utf-8", content)
+            return
         else:
             super().do_GET()
 
@@ -138,6 +229,13 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             content_length = int(self.headers.get("Content-Length", 0))
             body = self.rfile.read(content_length).decode("utf-8")
             try:
+                # Archive old artifact.html before overwriting
+                if os.path.exists(ARTIFACT_FILE):
+                    with open(ARTIFACT_FILE, "r", encoding="utf-8") as f:
+                        old_content = f.read()
+                    if old_content.strip():
+                        _archive_artifact(old_content)
+
                 with open(ARTIFACT_FILE, "w", encoding="utf-8") as f:
                     f.write(body)
                 global _mtime_artifact, _cached_artifact, _cached_etag_artifact
@@ -148,6 +246,10 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
                 # Broadcast live reload to all connected browsers
                 _notify_clients("reload")
+
+                # Broadcast history-update so dropdown refreshes
+                with _history_lock:
+                    _notify_clients("history-update", {"items": list(_history)})
 
                 self._send(200, "text/plain", b"OK")
             except Exception as e:
@@ -224,14 +326,17 @@ class ThreadedHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
 
 
 def run_server():
+    _load_history()
     server = ThreadedHTTPServer(("", PORT), Handler)
-    print(f"Artifact Preview v2.0 server running on http://localhost:{PORT}")
-    print(f"  /            → Preview UI")
-    print(f"  /artifact    → Raw artifact HTML")
-    print(f"  /update      → POST to save artifact + broadcast reload")
-    print(f"  /events      → SSE stream for live reload")
-    print(f"  /notify-open → POST to trigger browser open")
+    print(f"Artifact Preview v4.0 server running on http://localhost:{PORT}")
+    print(f"  /              → Preview UI")
+    print(f"  /artifact      → Raw artifact HTML")
+    print(f"  /update        → POST to save artifact + broadcast reload")
+    print(f"  /events        → SSE stream (reload + history-update)")
+    print(f"  /notify-open   → POST to trigger browser open")
+    print(f"  /history/<filename> → serve archived artifact")
     print(f"\nServing: {DIRECTORY}")
+    print(f"History: {len(_history)} items (max {MAX_HISTORY})")
     print("Press Ctrl+C to stop\n")
 
     for sig in (signal.SIGINT, signal.SIGTERM):
