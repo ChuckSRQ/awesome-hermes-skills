@@ -23,6 +23,8 @@ Artifact Preview kills that loop dead. 💀🔥
 
 Your agent writes HTML/CSS/JS → the browser opens automatically 🚀 → you see a polished, live, interactive preview. Update the code? It reloads in real-time. No refresh buttons. No manual steps. Zero friction. ⚡
 
+---
+
 💡 One file. Zero config. Instant preview. 🌈
 
 🔥 Key Features
