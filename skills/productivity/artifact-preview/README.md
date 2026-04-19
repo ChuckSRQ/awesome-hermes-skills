@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🪽 Artifact Preview v3.0
+# 🪽 Artifact Preview v3.1
 
 ### **Write code. See it live. Instantly. 🔥**
 
@@ -56,22 +56,19 @@ No profile pickers, no annoying blank tabs, and zero Chrome drama. It opens a de
 🍎 Proper macOS Integration
 Uses Swift (NSScreen.main) for perfect logical screen sizing and AppleScript for precise window bounds. No dual-monitor bleed. 🎯
 
-🆕 What’s New in v3.0 🚀
-Artifact Preview v3.0 is a massive leap forward. We’ve turned the "v2.0 shrug" into a v3.0 firestorm! 💥
+## 🆕 What's New in v3.1 🚀
+Artifact Preview v3.1 adds the two missing runtime files to the distribution package — the skill is now fully self-contained and plug-and-play. 💥
 
-💎 Enhanced Windowing: Upgraded from two basic modes to three specialized windows (Portrait, Horizontal, and Full).
+📦 **Complete Distribution Package:** `server.py` and `share-screenshot.py` are now included in the skill directory. Clone the repo, copy the files, and everything works — no separate downloads required.
 
-🧠 Deep Intelligence: We ditched manual selection for Auto-Detect, which analyzes your HTML to choose the best layout for you.
+🛠️ **v3.0 Foundations:** All the improvements from v3.0 carry forward:
+- Three specialized windows (Portrait, Horizontal, Full)
+- Auto-Detect mode that reads your HTML
+- Native desktop feel with Swift NSScreen precision
+- Bypasses Chrome profile dialogs entirely
+- Adaptive "hug" UI that shrinks to fit widgets
 
-🖥️ Native Desktop Feel: "Full Screen" now launches a dedicated window on your primary display rather than just another tab.
-
-🎯 Surgical Precision: We moved from basic Finder bounds to the Swift NSScreen API for pixel-perfect accuracy on high-density displays. 🍎
-
-✨ Frictionless Flow: We’ve completely bypassed the Chrome profile dialogs for a truly clean launch.
-
-📐 Adaptive "Hug" UI: The interface now hugs your widgets instead of forcing a rigid 960px container. 🫂
-
-🐛 Total Stability: Fixed internal naming conflicts to ensure seamless performance with Chrome OSA. 🛠️
+---
 
 ---
 

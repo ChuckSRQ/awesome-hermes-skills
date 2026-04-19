@@ -18,7 +18,7 @@
 
 These are the crown jewels — the skills that get used daily and make Hermes genuinely powerful.
 
-### 🪽 [Artifact Preview v3.0](skills/productivity/artifact-preview/README.md) <img src="https://img.shields.io/badge/NEW-v3.0-8B5CF6?style=flat-square" alt="v3.0" />
+### 🪽 [Artifact Preview v3.1](skills/productivity/artifact-preview/README.md) <img src="https://img.shields.io/badge/NEW-v3.1-8B5CF6?style=flat-square" alt="v3.1" />
 
 > *Write code. See it live. Instantly. Auto-detects the right window size from your HTML.*
 
@@ -40,21 +40,21 @@ mkdir -p ~/artifact-preview
 cp skills/productivity/artifact-preview/open-chrome.sh ~/artifact-preview/
 cp skills/productivity/artifact-preview/open-chrome.applescript ~/artifact-preview/
 cp skills/productivity/artifact-preview/server.py ~/artifact-preview/
+cp skills/productivity/artifact-preview/share-screenshot.py ~/artifact-preview/
 cp skills/productivity/artifact-preview/index.html ~/artifact-preview/
 chmod +x ~/artifact-preview/open-chrome.sh
 cd ~/artifact-preview && python3 server.py &
 ```
 
-#### 🆕 What's new in v3.0
+#### 🆕 What's new in v3.1
 
-| Feature | v2.0 | v3.0 |
+| Feature | v3.0 | v3.1 |
 |---------|------|------|
-| Window modes | 2 (square + full tab) | **3 — portrait, horizontal, full** |
-| Mode selection | Manual | **Auto-detect from HTML** |
-| Full screen | New tab | **New window, fills primary display** |
-| Multi-monitor | Spans all screens | **Main display only** |
-| Chrome launch | Profile picker + blank tabs | **Clean, no dialog** |
-| Preview card | Always 960px max | **Hugs small, fills for websites** |
+| Distribution | Incomplete — missing runtime files | **Fully self-contained** |
+| server.py | Not in repo | **Included** |
+| share-screenshot.py | Not in repo | **Included** |
+| Window modes | 3 (portrait, horizontal, full) | 3 (unchanged) |
+| Auto-detect | Yes | Yes |
 
 #### 🎯 Core features
 
