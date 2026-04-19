@@ -18,11 +18,11 @@
 
 These are the crown jewels — the skills that get used daily and make Hermes genuinely powerful.
 
-### 🔥🪽 [Artifact Preview v2.0](skills/productivity/artifact-preview/README.md) <img src="https://img.shields.io/badge/NEW-v2.0-8B5CF6?style=flat-square" alt="v2.0" />
+### 🪽 [Artifact Preview v3.0](skills/productivity/artifact-preview/README.md) <img src="https://img.shields.io/badge/NEW-v3.0-8B5CF6?style=flat-square" alt="v3.0" />
 
-> *The "Claude Artifacts" experience — for any AI agent. Write code, see it live. Instantly.*
+> *Write code. See it live. Instantly. Auto-detects the right window size from your HTML.*
 
-Write a prompt. Get a **real, working app** — not a skeleton, not a toy. A polished, interactive artifact that opens live in a compact browser window the moment it's generated. Edit it inline. Screenshot it. Share it. All in seconds.
+Write a prompt. Get a **real, working app** — not a skeleton, not a toy. A polished, interactive artifact that opens live in a Chrome window the moment it's generated. Three content-shaped modes. Auto-detection. Live reload. Inline editor. Retina screenshots. All in seconds.
 
 **Perfect for:** dashboards, UI components, prototypes, interactive demos, forms, games, data visualizations, landing pages, charts, plugins
 
@@ -33,31 +33,42 @@ show me an interactive map component
 create a tic-tac-toe game
 ```
 
-#### 📥 Download
+#### 📥 Install
 
 ```bash
-cp -r ~/.hermes/skills/awesome-hermes-skills/productivity/artifact-preview ~/.hermes/skills/
+mkdir -p ~/artifact-preview
+cp skills/productivity/artifact-preview/open-chrome.sh ~/artifact-preview/
+cp skills/productivity/artifact-preview/open-chrome.applescript ~/artifact-preview/
+cp skills/productivity/artifact-preview/server.py ~/artifact-preview/
+cp skills/productivity/artifact-preview/index.html ~/artifact-preview/
+chmod +x ~/artifact-preview/open-chrome.sh
+cd ~/artifact-preview && python3 server.py &
 ```
 
-**[→ Read the full skill documentation](skills/productivity/artifact-preview/README.md)**
+#### 🆕 What's new in v3.0
 
----
-
-#### ✨ What's new in v2.0
-
-- 🪽 **Hermes Preview** — branded compact window with violet accents. No mode clutter, no toggles. Just preview.
-- 📐 **Auto-fit smart card** — the preview *shrinks to hug* small widgets and charts, *expands* for full-width websites. No manual resizing. It just knows.
-- ✏️ **Inline HTML editor** — Code / Split / Preview tabs right in the toolbar. Edit live, see changes in real-time.
-- 📸 **Screenshot + macOS Share** — one click captures to Preview.app with the full system share sheet. AirDrop, Messages, Mail — whatever.
-- ⚡ **Zero-latency reload** — SSE pushes updates the instant you save. No polling, no waiting, no refresh buttons.
+| Feature | v2.0 | v3.0 |
+|---------|------|------|
+| Window modes | 2 (square + full tab) | **3 — portrait, horizontal, full** |
+| Mode selection | Manual | **Auto-detect from HTML** |
+| Full screen | New tab | **New window, fills primary display** |
+| Multi-monitor | Spans all screens | **Main display only** |
+| Chrome launch | Profile picker + blank tabs | **Clean, no dialog** |
+| Preview card | Always 960px max | **Hugs small, fills for websites** |
 
 #### 🎯 Core features
 
-- 🏗️ **Self-contained HTML** — one file, no build step, no npm, no dependencies (except Google Fonts)
-- 🎨 **Modern dark theme** — midnight blue + violet accent (#8B5CF6), glassmorphism card, clean typography
-- 🖥️ **Smart windowing** — compact 640px window for widgets, full browser tab for websites. You pick at launch.
-- ⌨️ **Keyboard-first** — `Cmd+Shift+E` editor, `Cmd+Shift+S` save, `Cmd+Shift+R` refresh
-- 📦 **Drop-in setup** — Python server, one command to start, zero config
+- 🧠 **Auto-detect mode** — reads your HTML meta tags or content heuristics, picks portrait/horizontal/full automatically
+- 🖥️ **Three content-shaped windows** — portrait (~430×844) for phone apps, horizontal (~1240×720) for dashboards, full for websites
+- ⚡ **Zero-latency live reload** — SSE pushes updates the instant you save, no refresh buttons
+- 📐 **Smart card** — hugs small widgets, expands edge-to-edge for full-width websites
+- ✏️ **Inline HTML editor** — Code / Split / Preview tabs with `Cmd+Shift+E` toggle
+- 📸 **Retina screenshots** — one-click capture to macOS Preview with system share sheet
+- 🎨 **Design system** — Instrument Sans, violet accent (#8B5CF6), modern CSS
+- 🔌 **Zero deps** — one HTML file, no npm, no build step
+- 🍎 **macOS native** — AppleScript window management, `NSScreen` API, Chrome integration
+
+**[→ Read the full skill documentation](skills/productivity/artifact-preview/README.md)**
 
 ---
 

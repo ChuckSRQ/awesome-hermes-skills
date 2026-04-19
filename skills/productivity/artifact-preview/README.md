@@ -28,6 +28,33 @@ Your agent writes HTML/CSS/JS → the browser opens **automatically** → you se
 
 ---
 
+## 🆕 What's New in v3.0
+
+Artifact Preview just got a major upgrade. Here's everything that changed from v2.0:
+
+| Feature | v2.0 | v3.0 |
+|---------|------|------|
+| Window modes | 2 (square + full tab) | **3 — portrait, horizontal, full** |
+| Mode selection | Manual (pick at launch) | **Auto-detect from HTML content** |
+| Full screen | Opens a new tab | **New window, fills primary display** |
+| Multi-monitor | Spans across all screens | **Main display only via `NSScreen` API** |
+| Chrome launch | Profile picker + blank tabs | **Clean launch, no profile dialog** |
+| Card behavior | Always 960px max | **Hugs small widgets, fills for websites** |
+| Variable naming | `mode` (Chrome OSA conflict) | **`theMode` (bug fix)** |
+| Screen detection | Finder `desktop bounds` | **Swift `NSScreen.main` (correct logical size)** |
+
+### The headline features
+
+🧠 **Auto-detect mode** — The launcher reads your HTML and picks the right window. No arguments needed. Add a `<meta name="preview-mode" content="portrait">` tag for explicit control, or let heuristics decide.
+
+🖥️ **Three content-shaped windows** — Portrait (~430×844) for phone apps. Horizontal (~1240×720) for dashboards. Full (fills your main display) for websites. Each mode creates a purpose-built window — not one-size-fits-all tabs.
+
+📐 **Smart card that adapts** — Small widgets get a compact centered card with rounded corners. Full-width websites expand edge-to-edge with no border radius. The preview shape-shifts to match what you built.
+
+🍎 **Proper macOS integration** — Uses `NSScreen.main` via Swift for correct logical screen size, `open -a 'Google Chrome'` for clean profile launches, and AppleScript for precise window bounds. No more profile pickers, blank tabs, or dual-monitor bleed.
+
+---
+
 ## ✨ The Magic Trick
 
 🧠 **Auto-detect mode** — just write your HTML. The launcher reads your artifact and picks the right window size. Phone app? Portrait. Dashboard? Horizontal. Full website? Maximized. No arguments needed.
