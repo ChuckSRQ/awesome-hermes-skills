@@ -16,7 +16,7 @@
 
 ---
 
-🎬 The Pitch
+## 🎬 The Pitch
 You’re working with an AI agent. You say "build me a dashboard" and you get... a wall of code you have to copy, paste, save, and open. Every. Single. Time. 😩
 
 Artifact Preview kills that loop dead. 💀🔥
@@ -25,7 +25,7 @@ Your agent writes HTML/CSS/JS → the browser opens automatically 🚀 → you s
 
 ---
 
-💡 One file. Zero config. Instant preview. 🌈
+## 💡 One file. Zero config. Instant preview. 🌈
 
 🔥 Key Features
 🧠 Auto-Detect Mode
@@ -58,7 +58,9 @@ No profile pickers, no annoying blank tabs, and zero Chrome drama. It opens a de
 🍎 Proper macOS Integration
 Uses Swift (NSScreen.main) for perfect logical screen sizing and AppleScript for precise window bounds. No dual-monitor bleed. 🎯
 
-🆕 What’s New in v3.0 🚀
+---
+
+## 🆕 What’s New in v3.0 🚀
 Artifact Preview v3.0 is a massive leap forward. We’ve turned the "v2.0 shrug" into a v3.0 firestorm! 💥
 
 💎 Enhanced Windowing: Upgraded from two basic modes to three specialized windows (Portrait, Horizontal, and Full).
