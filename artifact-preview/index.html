@@ -663,7 +663,7 @@
     $('btn-save-new').addEventListener('click', async () => {
         const newHTML = editorTextarea.value;
         try {
-            const resp = await fetch('update', {
+            const resp = await fetch('save-new', {
                 method: 'POST',
                 body: newHTML,
                 headers: { 'Content-Type': 'text/html; charset=utf-8' }
