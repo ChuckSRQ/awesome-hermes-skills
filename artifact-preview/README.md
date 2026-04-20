@@ -1,171 +1,113 @@
 <div align="center">
 
-# 🪽 Artifact Preview **v4.2**
+# 🪽 Artifact Preview **v4.2** — Claude Artifacts, But Better 🔥
 
-### **Write code. See it live. Instantly. Never lose a version.**
+### Write code. See it live. Instantly. Never lose a version. 🪄
 
-*The ultimate live HTML/CSS/JS preview for any AI agent — now with smart persistent history that actually works.*
+**One-line install • Persistent History • Live Reload • Save as New** ✨
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/install.sh | bash
+```
 
 [![macOS](https://img.shields.io/badge/platform-macOS-000000?logo=apple&logoColor=white)](https://github.com/ChuckSRQ/awesome-hermes-skills)
-[![Windows](https://img.shields.io/badge/platform-Windows-0078D4?logo=windows&logoColor=white)](https://github.com/ChuckSRQ/awesome-hermes-skills)
-[![Linux](https://img.shields.io/badge/platform-Linux-CC0000?logo=linux&logoColor=white)](https://github.com/ChuckSRQ/awesome-hermes-skills)
 [![Chrome](https://img.shields.io/badge/browser-Chrome-4285F4?logo=googlechrome&logoColor=white)](https://google.com/chrome)
 
-[Installation](#-installation) · [Quick Start](#-quick-start) · [History \& Versions](#-history--recent-artifacts) · [What's New in v4.2](#-whats-new-in-v42)
+[Installation](#-installation-one-line-magic) · [Quick Start](#-quick-start) · [History](#-history--recent-artifacts) · [What's New](#-whats-new-in-v42)
 
 </div>
 
 ---
 
-🎬 **The Pitch**
-Tired of generating beautiful HTML only to watch it vanish the moment you create the next one? 😩
+## 🎬 The Pitch
 
-**Artifact Preview v4.2** fixes that forever.
+You tell your AI **"build me a fitness dashboard"** → a gorgeous **live, interactive preview** pops open in the perfect Chrome window 📊
 
-Tell your agent "build me a fitness dashboard" → polished interactive preview opens instantly 📊 → make changes → **live reload in sub-seconds** ⚡ → and **every version is automatically saved to history** with one-click access.
+Make a change? **Live reload in sub-second** ⚡
+Love a version? **Saved to history automatically** 🕐
+Want to experiment? Hit **"Save as New"** — your current preview stays safe ✅
 
-No more "where did that cool version go?" moments. Ever.
+**Artifact Preview v4.2** turns raw AI output into a delightful, version-controlled visual experience. Stop losing work. Start building faster. 🔥
 
 ---
 
-🔥 **Key Features**
+## 🔥 Key Features
 
-- 🧠 **Smart Auto-Detect** → chooses Portrait 📱, Horizontal 📺 or Full 🖥️ based on your content
-- ⚡ **Sub-second live reload** with Server-Sent Events (no polling!)
-- ✏️ **Built-in Code Editor** with Code / Split / Preview tabs + keyboard shortcuts
-- 📸 **One-click Retina screenshots** → saves to Downloads + opens Preview with Share button
+- 🧠 **Smart Auto-Detect** → Portrait 📱 / Horizontal 📺 / Full 🖥️ — chooses the perfect window shape automatically
+- ⚡ **Sub-second live reload** with Server-Sent Events — no polling, no lag, just instant ⚡
+- ✏️ **Built-in Code Editor** with Code / Split / Preview tabs + `⌘⇧E`
+- 📸 **One-click Retina screenshots** → Downloads + Preview.app with Share button
 - 🕐 **Recent Artifacts Dropdown** — instantly switch between live and past versions
-- 📦 **Persistent History** — automatic timestamped backups (up to 15) with readable titles
-- ✅ **"Save as New" button** — add the current editor state to history **without touching your live preview**
-- 🪟 **Cross-platform launcher** (macOS native + solid Windows/Linux support)
-- 🎨 Modern dark-first UI with Instrument Sans, violet accents, and auto-fit smart card
+- 📦 **Persistent History** — automatic timestamped backups (up to 15) with smart readable titles
+- ✅ **"Save as New"** — save a variation without touching your live preview
+- 🎨 **Modern dark UI** with violet accents, auto-fit smart card, beautiful toast notifications
 
-**Idea → interactive prototype in ~3 seconds.** That's not hype. That's the experience.
-
----
-
-### 🆕 What's New in **v4.2** 🔥
-
-- **Newest versions now appear at the top** of the Recent dropdown (finally intuitive!)
-- **Auto-capture on server startup** — whatever is in `artifact.html` gets saved to history automatically
-- **Beautiful "Saved to history" toasts** — you'll actually *see* when your work is safely backed up
-- **"Save as New" button** in the editor — save the current editor state as a brand-new history entry without overwriting your live artifact
-- **Pinned "● Current — Live"** entry in the dropdown so you always know what you're looking at
-- Fixed toast deduplication and better error handling
-
-History is no longer an afterthought — it's now a **delightful, reliable superpower**.
+**Idea → interactive prototype in ~3 seconds.** No hype. That's the actual experience. 🚀
 
 ---
 
-### 📦 **History & Recent Artifacts** — Never Lose Work Again
+## 🆕 What's New in **v4.2** 🔥
 
-Every time you save (normal Save or **Save as New**), the artifact is automatically archived with:
-- Timestamped filename (`20260420-142300-fitness-dashboard.html`)
-- Extracted title from `<title>` or `<h1>`
-- One-click access via the toolbar dropdown
-
-**Pro tip**: Use the **Save as New** button when you love a variation but want to keep experimenting on the live version.
-
----
-
-## 🔥 The Workflow
-
-```
-You: "Build me a fitness app dashboard"
-
-   AI agent writes HTML/CSS/JS
-          ↓
-   Saves to ~/artifact-preview/artifact.html
-          ↓
-   curl POST triggers save + archive + toast + live reload
-          ↓
-   Chrome opens automatically in portrait mode 📱
-          ↓
-   You see a live, polished, interactive app ✨
-          ↓
-   "Add a heart rate widget"
-          ↓
-   Agent updates the file → live reload → instant update ⚡
-```
-
-**Total time from idea to preview: ~3 seconds. 🚀**
+- ✅ **Newest versions at top** of Recent dropdown (finally intuitive!)
+- ✅ **Auto-capture on server startup** — whatever's in `artifact.html` gets saved automatically
+- ✅ **"✅ Saved to history" toasts** — you *see* when your work is safely backed up
+- ✅ **"Save as New" button** — save variations without overwriting live artifact
+- ✅ **Pinned "● Current — Live"** in dropdown so you always know what you're looking at
+- ✅ Fixed toast deduplication + better error handling throughout
 
 ---
 
-## 📦 Installation
+## 📦 History & Recent Artifacts — Never Lose Work Again 🛟
+
+Every save automatically archives your work with:
+- ⏰ Timestamped filename (`20260420-142300-fitness-dashboard.html`)
+- 🏷️ Smart title extracted from `<title>` or `<h1>`
+- 🔎 One-click access via the toolbar dropdown
+
+**Pro tip:** Hit **"Save as New"** when you love a variation but want to keep building on the live version. Your current artifact stays safe! 💪
+
+---
+
+## 📥 Installation — One-Line Magic ✨
 
 ```bash
-# Clone or copy the skill
-mkdir -p ~/artifact-preview
-cp skills/productivity/artifact-preview/*.sh ~/artifact-preview/
-cp skills/productivity/artifact-preview/*.applescript ~/artifact-preview/
-cp skills/productivity/artifact-preview/server.py ~/artifact-preview/
-cp skills/productivity/artifact-preview/index.html ~/artifact-preview/
-cp skills/productivity/artifact-preview/launcher.py ~/artifact-preview/
-chmod +x ~/artifact-preview/open-chrome.sh
-chmod +x ~/artifact-preview/launcher.py
-
-# Start the server (one time, runs in background)
-cd ~/artifact-preview && python3 server.py &
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/install.sh | bash
 ```
 
-### macOS 🍎
-> Requires macOS 12+ (Monterey) and Google Chrome. First run will prompt for Automation permissions (System Preferences → Privacy & Security → Automation → grant to Terminal).
+That's it. One command. Installs everything, registers with Hermes, starts the server. 🚀
 
-### Windows 🪟 & Linux 🐧
-> For precise window control, install optional dependencies:
-> ```bash
-> pip install screeninfo pywinctl
-> ```
-> The launcher works without them using basic window management.
-
----
-
-## 🚀 Quick Start
-
+After install:
 ```bash
-# 1. Start the server (do this once)
 cd ~/artifact-preview && python3 server.py &
-
-# 2. Generate → save → preview (your agent should do this)
-cd ~/artifact-preview
-cat > artifact.html << 'ENDOFHTML'
-[your full HTML here]
-ENDOFHTML
-
-curl -X POST http://localhost:8765/update \
-  -H "Content-Type: text/html; charset=utf-8" \
-  --data-binary @artifact.html -s -o /dev/null
-
-# 3. Open the preview
-bash ~/artifact-preview/open-chrome.sh   # auto mode = magic
+bash ~/artifact-preview/open-chrome.sh        # auto mode = pure magic 🪄
 ```
 
-The Recent dropdown and toasts will guide you from there.
+**Pro tip:** Add this alias to your `~/.zshrc` or `~/.bashrc`:
+```bash
+alias ap='cd ~/artifact-preview && python3 server.py &'
+```
 
-### Using the Recent Dropdown 🕐
-
-The dropdown appears automatically in the toolbar:
-- **Top item**: "● Current — Live" (the active `artifact.html`)
-- **Below**: past artifacts like "Mobile Login — 3m ago" or "Dashboard — Apr 20"
-- Click any entry to load it into the preview
-- **Save as New** in the editor → save a variation without overwriting the live artifact
+### Uninstall (also one-line):
+```bash
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/uninstall.sh | bash
+```
 
 ---
 
 ## 🪟 Launch Modes
 
-| Mode | Size | Emoji | Best For 🔥 |
-|------|------|:-----:|-------------|
-| **Portrait** | ~430×844 | 📱 | Phone apps, mobile UI, Instagram-style, fitness apps |
-| **Horizontal** | ~1240×720 | 📺 | Dashboards, analytics, video layouts, data viz |
-| **Full** | Main display | 🖥️ | Websites, landing pages, full applications |
+| Mode | Size | Best For 🔥 |
+|------|------|-------------|
+| **Portrait** 📱 | ~430×844 | Phone apps, mobile UI, fitness trackers, Instagram-style |
+| **Horizontal** 📺 | ~1240×720 | Dashboards, analytics, data viz, video layouts |
+| **Full** 🖥️ | Main display | Websites, landing pages, full applications |
 
-### How auto-detect works 🧠
-
-1. **Meta tag** — `<meta name="preview-mode" content="portrait|horizontal|full">` (explicit, always wins)
-2. **Heuristic** — finds `<nav>`/`<footer>` → full, mobile viewport + narrow layout → portrait
-3. **Default** — horizontal (good middle ground)
+**Auto-detect works automatically** — but you can force a mode:
+```bash
+bash ~/artifact-preview/open-chrome.sh portrait   # phone window
+bash ~/artifact-preview/open-chrome.sh horizontal # video/dashboard
+bash ~/artifact-preview/open-chrome.sh full       # maximized
+```
 
 ---
 
@@ -179,19 +121,19 @@ The dropdown appears automatically in the toolbar:
 
 ---
 
-## 🎨 Design Standards
+## 🎨 Design Standards — Build Beautiful, Not Skeletons 💀
 
-Every artifact should be **complete, beautiful, and interactive** — not a skeleton 💀
+Every artifact should be **complete, polished, and interactive**:
 
-- **Real functionality** — buttons work, inputs respond, data flows
-- **Modern CSS** — flexbox/grid, CSS variables, smooth transitions, rounded corners
-- **Self-contained** — one HTML file, inline everything, Google Fonts OK
-- **Light-first** — warm white backgrounds (`#F8F7F4`) unless content demands dark
+- ✅ **Real functionality** — buttons work, inputs respond, data flows
+- ✅ **Modern CSS** — flexbox/grid, CSS variables, smooth transitions, rounded corners
+- ✅ **Self-contained** — one HTML file, inline everything, Google Fonts OK
+- ✅ **Light-first** — warm white `#F8F7F4` unless content demands dark
 
-### Default palette 🎨
+### Default Palette 🎨
 
-| Color | Hex | Usage |
-|-------|-----|-------|
+| | Hex | Use |
+|---|-----|-----|
 | ⬜ Warm white | `#F8F7F4` | Background |
 | 🟪 Violet | `#8B5CF6` | Primary accent |
 | ⬛ Near-black | `#1A1A2E` | Text |
@@ -206,54 +148,86 @@ Font: **Instrument Sans** via Google Fonts.
 
 ```
 ~/artifact-preview/
-├── 🚀 server.py              # Python HTTP + SSE (background process)
-├── 🪟 open-chrome.sh         # Shell wrapper — validates mode, auto-detects (macOS)
-├── 🪟 launcher.py             # Cross-platform launcher (macOS/Windows/Linux)
-├── 🍎 open-chrome.applescript  # AppleScript — Chrome window management (macOS)
-├── 📸 share-screenshot.py     # Retina capture → Preview.app
-├── 🖼️ index.html              # Preview UI + toolbar + Recent dropdown
-├── 📝 artifact.html           # Your artifact (overwrite each time)
-├── 📂 history/                # Auto-backup of past artifacts
-└── 📄 artifacts.json          # History manifest
+├── 🚀 server.py                 # Python HTTP + SSE (background server)
+├── 🪟 open-chrome.sh            # Shell wrapper — validates mode, auto-detects
+├── 🪟 launcher.py               # Cross-platform launcher (macOS/Windows/Linux)
+├── 🍎 open-chrome.applescript   # AppleScript — Chrome window management
+├── 📸 share-screenshot.py       # Retina capture → Downloads + Preview.app
+├── 🖼️ index.html               # Preview UI + toolbar + Recent dropdown
+├── 📝 artifact.html             # Your artifact (overwrite each time)
+├── 📂 history/                 # Auto-backup of all past artifacts
+└── 📄 artifacts.json            # History manifest
 ```
 
 ---
 
 ## ⚙️ Requirements
 
-| Requirement | Why |
-|-------------|-----|
-| 🍎 **macOS 12+** | AppleScript window management, `NSScreen` API |
-| 🪟 **Windows 10+** | Chrome + optional PyWinCtl for window control |
-| 🐧 **Linux** | Chrome + optional PyWinCtl/wmctrl for window control |
-| 🌐 **Google Chrome** | Target browser for preview windows |
-| 🐍 **Python 3.8+** | HTTP server with Server-Sent Events |
-| 🔐 **Automation permissions** | Terminal needs access to control Chrome (macOS) |
+| | |
+|---|---|
+| 🍎 **macOS 12+** | AppleScript window management |
+| 🌐 **Google Chrome** | Target browser |
+| 🐍 **Python 3.8+** | HTTP server with SSE |
+| 🔐 **Automation permissions** | One-time: System Settings → Privacy & Security → Automation → grant Terminal → Chrome |
 
-### Optional Dependencies (Windows/Linux)
-
+### Windows 🪟 & Linux 🐧
+Optional (for precise window sizing):
 ```bash
 pip install screeninfo pywinctl
 ```
 
-These enable precise window positioning and sizing. The launcher works without them using basic browser APIs.
-
 ---
 
-## 🔧 Configuration
-
-Everything lives in `~/artifact-preview/`. Server runs on port `8765`. Change it in `server.py` if needed.
+## 🔧 Server Commands
 
 ```bash
 # Start server
 cd ~/artifact-preview && python3 server.py &
 
 # Stop server
-pkill -f "artifact-preview/server.py"
+lsof -ti :8765 | xargs kill 2>/dev/null || true
 
-# Verify it's running
+# Verify running
 curl -s -o /dev/null -w "%{http_code}" http://localhost:8765/
 # → 200 ✅
+
+# Port is 8765. Override: export ARTIFACT_PREVIEW_PORT=9000
+```
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# 1. Install (one line!)
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/install.sh | bash
+
+# 2. Start the server
+cd ~/artifact-preview && python3 server.py &
+
+# 3. Generate → save → preview (your agent does this)
+cd ~/artifact-preview
+cat > artifact.html << 'ENDOFHTML'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cool App</title>
+</head>
+<body>
+    <!-- your content -->
+</body>
+</html>
+ENDOFHTML
+
+# Triggers save + archive + toast + live reload ⚡
+curl -X POST http://localhost:8765/update \
+  -H "Content-Type: text/html; charset=utf-8" \
+  --data-binary @artifact.html -s -o /dev/null
+
+# 4. Open the preview — auto mode is pure magic 🪄
+bash ~/artifact-preview/open-chrome.sh
 ```
 
 ---
@@ -262,7 +236,7 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:8765/
 
 ### Built for [Hermes Agent](https://github.com/ChuckSRQ/awesome-hermes-skills) 🔥
 
-*Part of [Awesome Hermes Skills](https://github.com/ChuckSRQ/awesome-hermes-skills) — a curated collection of production-ready AI agent skills.*
+*Part of [Awesome Hermes Skills](https://github.com/ChuckSRQ/awesome-hermes-skills) — production-ready AI agent skills.*
 
 **⭐ Star the repo if this saved you time.**
 
