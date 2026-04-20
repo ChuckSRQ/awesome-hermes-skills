@@ -158,6 +158,9 @@ def _archive_artifact():
 
     _save_history()
 
+    # Notify frontend for nice toast
+    _notify_clients("history-saved", {"title": title or "Untitled"})
+
     # Broadcast history-update to all SSE clients
     _broadcast_history_update()
 
@@ -301,9 +304,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             content_length = int(self.headers.get("Content-Length", 0))
             body = self.rfile.read(content_length).decode("utf-8")
             try:
-                # Archive the old artifact before writing new content
-                _archive_artifact()
-
+                # Write new content first, then archive (newest appears at top of history)
                 with open(ARTIFACT_FILE, "w", encoding="utf-8") as f:
                     f.write(body)
                 global _mtime_artifact, _cached_artifact, _cached_etag_artifact
@@ -311,6 +312,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 _cached_artifact = body.encode("utf-8")
                 _cached_etag_artifact = hashlib.md5(_cached_artifact).hexdigest()[:16]
                 print(f"[{time.strftime('%H:%M:%S')}] Saved artifact ({len(body):,} bytes)")
+
+                # Archive new content to history (after write so newest appears at top)
+                _archive_artifact()
 
                 # Broadcast live reload to all connected browsers
                 _notify_clients("reload")
@@ -392,6 +396,7 @@ class ThreadedHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
 def run_server():
     # Load history on startup
     _load_history()
+    _archive_artifact()   # Auto-capture initial artifact.html on server start
 
     server = ThreadedHTTPServer(("", PORT), Handler)
     print(f"Artifact Preview v4.0 server running on http://localhost:{PORT}")
