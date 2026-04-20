@@ -10,7 +10,7 @@ echo "Uninstalling Artifact Preview..."
 # 1. Stop server
 if lsof -ti :8765 >/dev/null 2>&1; then
   echo "  Stopping server..."
-  pkill -f "python3.*server.py" 2>/dev/null || true
+  PID=$(lsof -ti :8765) && kill $PID 2>/dev/null
   sleep 1
   echo "  ✓ Server stopped"
 else
@@ -27,7 +27,7 @@ else
 fi
 
 # 3. Unregister from hermes
-HERMES_SKILL_DIR="$HOME/.hermes/skills/productivity/artifact-preview"
+HERMES_SKILL_DIR="$HOME/.hermes/skills/dev-platform/workspace/artifact-preview"
 if command -v hermes >/dev/null 2>&1; then
   hermes skills uninstall artifact-preview 2>/dev/null && echo "  ✓ hermes skill unregistered" || {
     rm -rf "$HERMES_SKILL_DIR"

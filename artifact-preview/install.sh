@@ -27,7 +27,9 @@ if [[ "$(printf '%s\n' "$PYTHON_MIN" "$PYTHON_VERSION" | sort -V | head -n1)" !=
   exit 1
 fi
 
-if [[ ! -d "/Applications/Google Chrome.app" ]]; then
+if which google-chrome >/dev/null 2>&1 || which chromium >/dev/null 2>&1 || [ -d "/Applications/Google Chrome.app" ]; then
+  echo "  ✓ Chrome OK"
+else
   echo "ERROR: Google Chrome not found at /Applications/Google Chrome.app"
   echo "Download from https://www.google.com/chrome/"
   exit 1
@@ -35,7 +37,6 @@ fi
 
 echo "  ✓ macOS OK"
 echo "  ✓ Python $PYTHON_VERSION OK"
-echo "  ✓ Chrome OK"
 
 # ── Idempotency: backup existing artifact.html ────────────────────────────────
 
@@ -52,12 +53,13 @@ fi
 echo ""
 echo "Downloading Artifact Preview files..."
 
-for file in index.html server.py share-screenshot.py open-chrome.sh open-chrome.applescript SKILL.md README.md; do
+for file in index.html server.py launcher.py share-screenshot.py open-chrome.sh open-chrome.applescript SKILL.md README.md; do
   echo "  $file"
   curl -fsSL "$REPO/$file" -o "$DEST_DIR/$file"
 done
 
 chmod +x "$DEST_DIR/open-chrome.sh"
+chmod +x "$DEST_DIR/launcher.py"
 chmod +x "$DEST_DIR/share-screenshot.py"
 
 echo "  ✓ All files downloaded"
@@ -68,15 +70,15 @@ echo ""
 echo "Registering skill with Hermes..."
 
 if command -v hermes >/dev/null 2>&1; then
-  hermes skills install --yes "$SKILL_NAME" 2>/dev/null && echo "  ✓ hermes skills install succeeded" || {
+  hermes skills install --yes --category dev-platform "$SKILL_NAME" 2>/dev/null && echo "  ✓ hermes skills install succeeded" || {
     echo "  ⚠ hermes install failed, falling back to manual copy"
-    HERMES_SKILL_DIR="$HOME/.hermes/skills/productivity/artifact-preview"
+    HERMES_SKILL_DIR="$HOME/.hermes/skills/dev-platform/workspace/artifact-preview"
     mkdir -p "$HERMES_SKILL_DIR"
     cp "$DEST_DIR/SKILL.md" "$HERMES_SKILL_DIR/SKILL.md"
     echo "  ✓ SKILL.md copied to $HERMES_SKILL_DIR"
   }
 else
-  HERMES_SKILL_DIR="$HOME/.hermes/skills/productivity/artifact-preview"
+  HERMES_SKILL_DIR="$HOME/.hermes/skills/dev-platform/workspace/artifact-preview"
   mkdir -p "$HERMES_SKILL_DIR"
   cp "$DEST_DIR/SKILL.md" "$HERMES_SKILL_DIR/SKILL.md"
   echo "  ✓ hermes not found — SKILL.md copied to $HERMES_SKILL_DIR"
@@ -89,7 +91,7 @@ echo "Starting Artifact Preview server..."
 
 # Kill any existing server on port 8765
 if lsof -ti :8765 >/dev/null 2>&1; then
-  pkill -f "python3.*server.py" 2>/dev/null || true
+  PID=$(lsof -ti :8765) && kill $PID 2>/dev/null
   sleep 1
 fi
 
@@ -100,7 +102,7 @@ SERVER_PID=$!
 # Poll for readiness
 READY=0
 for i in $(seq 1 10); do
-  if curl -sf --unix-socket /dev/null "http://localhost:8765/" >/dev/null 2>&1; then
+  if curl -sf http://localhost:8765/ >/dev/null 2>&1; then
     READY=1
     break
   fi
@@ -110,7 +112,8 @@ done
 if [[ "$READY" -eq 1 ]]; then
   echo "  ✓ Server running on http://localhost:8765 (PID $SERVER_PID)"
 else
-  echo "  ⚠ Server started (PID $SERVER_PID) but not responding — check /tmp/artifact-preview.log"
+  echo "ERROR: Server started (PID $SERVER_PID) but did not respond — check /tmp/artifact-preview.log"
+  exit 1
 fi
 
 # ── Post-install summary ─────────────────────────────────────────────────────
@@ -124,8 +127,8 @@ echo "  Server:  http://localhost:8765"
 echo "  Files:   $DEST_DIR"
 echo "  Logs:    /tmp/artifact-preview.log"
 echo ""
-echo "  To preview an artifact, run:"
-echo "  artifact-preview <artifact-file>"
+echo "  To preview the current artifact, run:"
+echo "  bash \"$DEST_DIR/open-chrome.sh\" auto"
 echo ""
 echo "──────────────────────────────────────────────"
 echo " ONE-TIME SETUP (macOS Automation Permissions)"
