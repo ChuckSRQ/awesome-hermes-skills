@@ -23,7 +23,7 @@ It is **not** for agents to read content from. The Chrome window is for human ey
 ## 🚀 One-Line Install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/main/artifact-preview/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/install.sh | bash
 ```
 
 Server starts automatically. You're ready to go. ✨
@@ -136,7 +136,7 @@ bash ~/artifact-preview/open-chrome.sh full      # maximized 🖥️
 cd ~/artifact-preview && python3 server.py &
 
 # Stop server
-pkill -f "artifact-preview/server.py"
+PIDS=$(lsof -ti :8765 2>/dev/null) && [ -n "$PIDS" ] && kill $PIDS 2>/dev/null || true
 
 # Verify running
 curl -s -o /dev/null -w "%{http_code}" http://localhost:8765/
@@ -163,7 +163,7 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:8765/
 Server is already running. Verify: `curl -s -o /dev/null -w "%{http_code}" http://localhost:8765/` → 200 means running.
 
 **Preview not updating?**
-Click **Refresh** in toolbar (instant via SSE) or restart: `pkill -f "artifact-preview/server.py" && cd ~/artifact-preview && python3 server.py &`
+Click **Refresh** in toolbar (instant via SSE) or restart: `PIDS=$(lsof -ti :8765 2>/dev/null) && [ -n "$PIDS" ] && kill $PIDS 2>/dev/null || true && cd ~/artifact-preview && python3 server.py &`
 
 **Content clipping — card shows only half:**
 Fix CSS overflow: `body { overflow: auto }`, `#container { overflow: visible }`, `#preview-card { overflow: visible }`, `#artifact-frame { overflow: auto }`. Don't add `height: 100%` to `#preview-card`.

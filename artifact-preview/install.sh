@@ -15,7 +15,7 @@ case "$DEST_DIR" in
 esac
 
 # Rollback on failure — preserve history if it exists
-trap 'echo "Install failed. Removing partial install..."; find "$DEST_DIR" -not -path "$DEST_DIR/history" -not -path "$DEST_DIR/history/*" -delete 2>/dev/null; exit 1' ERR
+trap 'echo "Install failed. Removing partial install..."; find "$DEST_DIR" -depth -not -path "$DEST_DIR/history" -not -path "$DEST_DIR/history/*" -delete 2>/dev/null; exit 1' ERR
 
 BRANCH="${ARTIFACT_PREVIEW_BRANCH:-v4.2}"
 REPO="https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/$BRANCH/artifact-preview"
@@ -102,7 +102,7 @@ echo "Starting Artifact Preview server..."
 
 # Kill any existing server on port
 if lsof -ti :$PORT >/dev/null 2>&1; then
-  lsof -ti :$PORT | xargs -r kill 2>/dev/null || true
+  PIDS=$(lsof -ti :$PORT 2>/dev/null) && [ -n "$PIDS" ] && kill $PIDS 2>/dev/null || true
   sleep 1
 fi
 

@@ -19,7 +19,7 @@ echo "Uninstalling Artifact Preview..."
 # 1. Stop server
 if lsof -ti :$PORT >/dev/null 2>&1; then
   echo "  Stopping server..."
-  lsof -ti :$PORT | xargs -r kill 2>/dev/null || true
+  PIDS=$(lsof -ti :$PORT 2>/dev/null) && [ -n "$PIDS" ] && kill $PIDS 2>/dev/null || true
   sleep 1
   echo "  ✓ Server stopped"
 else
@@ -46,9 +46,6 @@ else
   rm -rf "$HERMES_SKILL_DIR"
   echo "  ✓ hermes skill removed"
 fi
-
-# 4. Cleanup log
-rm -f /tmp/artifact-preview.log 2>/dev/null || true
 
 echo ""
 echo "✓ Artifact Preview fully uninstalled."
