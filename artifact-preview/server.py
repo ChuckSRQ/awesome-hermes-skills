@@ -287,9 +287,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self._send(200, "application/json", json.dumps(items).encode())
         elif self.path.startswith("/history/"):
             # Serve archived artifact file
-            filename = self.path[9:]  # Remove "/history/" prefix
-            # Security: prevent directory traversal
-            filename = os.path.basename(filename)
+            raw = self.path[9:]  # Remove "/history/" prefix
+            # Security: prevent directory traversal; strip query string (cache-buster ?t=)
+            filename = os.path.basename(raw.split("?")[0])
             filepath = os.path.join(HISTORY_DIR, filename)
             if os.path.exists(filepath) and os.path.isfile(filepath):
                 with open(filepath, "r", encoding="utf-8") as f:
