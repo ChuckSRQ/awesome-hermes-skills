@@ -1,84 +1,70 @@
 <div align="center">
 
-# 🪽 Artifact Preview v4.0
+# 🪽 Artifact Preview **v4.2**
 
-### **Write code. See it live. Instantly. 🔥**
+### **Write code. See it live. Instantly. Never lose a version.**
 
-*The "Claude Artifacts" experience — for any AI agent.*
+*The ultimate live HTML/CSS/JS preview for any AI agent — now with smart persistent history that actually works.*
 
 [![macOS](https://img.shields.io/badge/platform-macOS-000000?logo=apple&logoColor=white)](https://github.com/ChuckSRQ/awesome-hermes-skills)
 [![Windows](https://img.shields.io/badge/platform-Windows-0078D4?logo=windows&logoColor=white)](https://github.com/ChuckSRQ/awesome-hermes-skills)
 [![Linux](https://img.shields.io/badge/platform-Linux-CC0000?logo=linux&logoColor=white)](https://github.com/ChuckSRQ/awesome-hermes-skills)
 [![Chrome](https://img.shields.io/badge/browser-Chrome-4285F4?logo=googlechrome&logoColor=white)](https://google.com/chrome)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-3776AB?logo=python&logoColor=white)](https://python.org)
 
-[Installation](#-installation) · [Quick Start](#-quick-start) · [Modes](#-launch-modes) · [Features](#-features)
+[Installation](#-installation) · [Quick Start](#-quick-start) · [History \& Versions](#-history--recent-artifacts) · [What's New in v4.2](#-whats-new-in-v42)
 
 </div>
 
 ---
 
-🎬 The Pitch
-You you're working with an AI agent. You say "build me a dashboard" and you get... a wall of code you have to copy, paste, save, and open. Every. Single. Time. 😩
+🎬 **The Pitch**
+Tired of generating beautiful HTML only to watch it vanish the moment you create the next one? 😩
 
-Artifact Preview kills that loop dead. 💀🔥
+**Artifact Preview v4.2** fixes that forever.
 
-Your agent writes HTML/CSS/JS → the browser opens automatically 🚀 → you see a polished, live, interactive preview. Update the code? It reloads in real-time. No refresh buttons. No manual steps. Zero friction. ⚡
+Tell your agent "build me a fitness dashboard" → polished interactive preview opens instantly 📊 → make changes → **live reload in sub-seconds** ⚡ → and **every version is automatically saved to history** with one-click access.
 
-💡 One file. Zero config. Instant preview. 🌈
-
-🔥 Key Features
-🧠 Auto-Detect Mode
-It reads your code and intuitively picks the right window. Coding a mobile app? You get Portrait 📱. A complex dashboard? Horizontal 📺. A full website? Maximized 🖥️. No configuration needed!
-
-🖥️ Three Content-Shaped Windows
-Stop using one-size-fits-all tabs! Choose from Portrait (~430×844), Horizontal (~1240×720), or Full Display. It fits your content perfectly. 📐
-
-📐 Smart Card UI
-Small widgets get a compact, centered card 💎. Full-width websites expand edge-to-edge 🌊. The frame intelligently adapts to whatever you've built. ✨
-
-⚡ Sub-Second Live Reload
-Save your code and watch the magic happen instantly via Server-Sent Events. No polling, no delay, and zero refresh buttons. 🌬️
-
-✏️ Built-in Code Editor
-Effortlessly toggle between Code, Split, or Preview tabs. Edit your HTML inline and see changes immediately with a simple Cmd+Shift+E. ⌨️
-
-📸 One-Click Screenshot + Share
-Grab a high-res Retina capture 📸 that sends directly to macOS Preview or your system share sheet. AirDrop, Message, or Mail your work in a heartbeat! 🕊️
-
-🎨 Modern Design System
-Featuring Instrument Sans, vibrant violet accents, and warm white backgrounds. Every artifact looks like a premium product right out of the box. ✨
-
-🔌 Zero Dependencies
-A single, lightweight HTML file. No npm, no complex build steps, and no messy config files. It just works. 🔌✨
-
-🧹 Clean Chrome Launch
-No profile pickers, no annoying blank tabs, and zero Chrome drama. It opens a dedicated window and stays out of your way. 🧼
-
-🍎 Proper macOS Integration
-Uses Swift (NSScreen.main) for perfect logical screen sizing and AppleScript for precise window bounds. No dual-monitor bleed. 🎯
-
-🕐 **Recent Artifacts Dropdown**
-Instantly switch between current and previous previews without losing work. New generations never overwrite old ones. A clean "Recent" dropdown in the toolbar gives you access to the last ~15 artifacts.
-
-📦 **Persistent History**
-Automatic readable backups with one-click access. Every artifact is archived with a timestamp and readable title.
-
-🪟 **Cross-Platform Ready**
-macOS unchanged; foundation added for Windows + Linux (launcher.py + screeninfo/PyWinCtl).
+No more "where did that cool version go?" moments. Ever.
 
 ---
 
-## 🆕 What's New in v4.0 🚀
+🔥 **Key Features**
 
-🕐 **Recent Artifacts Dropdown**
-A clean "Recent" dropdown appears automatically in the toolbar. Every new artifact generation becomes the live preview; the previous one moves into the dropdown — fully accessible and editable.
+- 🧠 **Smart Auto-Detect** → chooses Portrait 📱, Horizontal 📺 or Full 🖥️ based on your content
+- ⚡ **Sub-second live reload** with Server-Sent Events (no polling!)
+- ✏️ **Built-in Code Editor** with Code / Split / Preview tabs + keyboard shortcuts
+- 📸 **One-click Retina screenshots** → saves to Downloads + opens Preview with Share button
+- 🕐 **Recent Artifacts Dropdown** — instantly switch between live and past versions
+- 📦 **Persistent History** — automatic timestamped backups (up to 15) with readable titles
+- ✅ **"Save as New" button** — add the current editor state to history **without touching your live preview**
+- 🪟 **Cross-platform launcher** (macOS native + solid Windows/Linux support)
+- 🎨 Modern dark-first UI with Instrument Sans, violet accents, and auto-fit smart card
 
-📦 **Persistent History**
-Automatic readable backups stored in `history/` with timestamped filenames (e.g., `20260418-232400-dashboard.html`). Never lose an artifact again.
+**Idea → interactive prototype in ~3 seconds.** That's not hype. That's the experience.
 
-🪟 **Cross-Platform Launcher**
-New `launcher.py` unifies Chrome launching across macOS, Windows, and Linux. macOS users see zero change; Windows/Linux users get proper window sizing and positioning.
+---
+
+### 🆕 What's New in **v4.2** 🔥
+
+- **Newest versions now appear at the top** of the Recent dropdown (finally intuitive!)
+- **Auto-capture on server startup** — whatever is in `artifact.html` gets saved to history automatically
+- **Beautiful "Saved to history" toasts** — you'll actually *see* when your work is safely backed up
+- **"Save as New" button** in the editor — save the current editor state as a brand-new history entry without overwriting your live artifact
+- **Pinned "● Current — Live"** entry in the dropdown so you always know what you're looking at
+- Fixed toast deduplication and better error handling
+
+History is no longer an afterthought — it's now a **delightful, reliable superpower**.
+
+---
+
+### 📦 **History & Recent Artifacts** — Never Lose Work Again
+
+Every time you save (normal Save or **Save as New**), the artifact is automatically archived with:
+- Timestamped filename (`20260420-142300-fitness-dashboard.html`)
+- Extracted title from `<title>` or `<h1>`
+- One-click access via the toolbar dropdown
+
+**Pro tip**: Use the **Save as New** button when you love a variation but want to keep experimenting on the live version.
 
 ---
 
@@ -90,6 +76,8 @@ You: "Build me a fitness app dashboard"
    AI agent writes HTML/CSS/JS
           ↓
    Saves to ~/artifact-preview/artifact.html
+          ↓
+   curl POST triggers save + archive + toast + live reload
           ↓
    Chrome opens automatically in portrait mode 📱
           ↓
@@ -135,30 +123,33 @@ cd ~/artifact-preview && python3 server.py &
 
 ## 🚀 Quick Start
 
-### Auto mode (recommended) ⚡
-
 ```bash
-# Just launch — it detects the right window size from your content
-bash ~/artifact-preview/open-chrome.sh
+# 1. Start the server (do this once)
+cd ~/artifact-preview && python3 server.py &
+
+# 2. Generate → save → preview (your agent should do this)
+cd ~/artifact-preview
+cat > artifact.html << 'ENDOFHTML'
+[your full HTML here]
+ENDOFHTML
+
+curl -X POST http://localhost:8765/update \
+  -H "Content-Type: text/html; charset=utf-8" \
+  --data-binary @artifact.html -s -o /dev/null
+
+# 3. Open the preview
+bash ~/artifact-preview/open-chrome.sh   # auto mode = magic
 ```
 
-That's it. Add a `<meta name="preview-mode" content="portrait">` tag to your HTML for explicit control, or let the heuristics figure it out.
-
-### Explicit modes
-
-```bash
-bash ~/artifact-preview/open-chrome.sh portrait    # 📱 phone-sized window
-bash ~/artifact-preview/open-chrome.sh horizontal  # 📺 wide window
-bash ~/artifact-preview/open-chrome.sh full        # 🖥️ maximized
-```
+The Recent dropdown and toasts will guide you from there.
 
 ### Using the Recent Dropdown 🕐
 
 The dropdown appears automatically in the toolbar:
-- **Top item**: "Current — Live" (the active `artifact.html`)
-- **Below**: last artifacts like "Mobile Login — 3m ago" or "Dashboard — Apr 18"
+- **Top item**: "● Current — Live" (the active `artifact.html`)
+- **Below**: past artifacts like "Mobile Login — 3m ago" or "Dashboard — Apr 20"
 - Click any entry to load it into the preview
-- Edit it inline and save — changes are preserved
+- **Save as New** in the editor → save a variation without overwriting the live artifact
 
 ---
 
@@ -217,13 +208,13 @@ Font: **Instrument Sans** via Google Fonts.
 ~/artifact-preview/
 ├── 🚀 server.py              # Python HTTP + SSE (background process)
 ├── 🪟 open-chrome.sh         # Shell wrapper — validates mode, auto-detects (macOS)
-├── 🪟 launcher.py            # Cross-platform launcher (macOS/Windows/Linux)
-├── 🍎 open-chrome.applescript # AppleScript — Chrome window management (macOS)
-├── 📸 share-screenshot.py    # Retina capture → Preview.app
-├── 🖼️ index.html             # Preview UI + toolbar + Recent dropdown
-├── 📝 artifact.html          # Your artifact (overwrite each time)
-├── 📂 history/               # Auto-backup of past artifacts
-└── 📄 artifacts.json         # History manifest
+├── 🪟 launcher.py             # Cross-platform launcher (macOS/Windows/Linux)
+├── 🍎 open-chrome.applescript  # AppleScript — Chrome window management (macOS)
+├── 📸 share-screenshot.py     # Retina capture → Preview.app
+├── 🖼️ index.html              # Preview UI + toolbar + Recent dropdown
+├── 📝 artifact.html           # Your artifact (overwrite each time)
+├── 📂 history/                # Auto-backup of past artifacts
+└── 📄 artifacts.json          # History manifest
 ```
 
 ---
