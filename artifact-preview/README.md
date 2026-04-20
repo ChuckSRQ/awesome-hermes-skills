@@ -7,12 +7,11 @@
 **One-line install • Persistent History • Live Reload • Save as New** ✨
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/main/artifact-preview/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/install.sh | bash
 ```
 
 [![macOS](https://img.shields.io/badge/platform-macOS-000000?logo=apple&logoColor=white)](https://github.com/ChuckSRQ/awesome-hermes-skills)
-[![Windows](https://img.shields.io/badge/platform-Windows-0078D4?logo=windows&logoColor=white)](https://github.com/ChuckSRQ/awesome-hermes-skills)
-[![Linux](https://img.shields.io/badge/platform-Linux-CC0000?logo=linux&logoColor=white)](https://github.com/ChuckSRQ/awesome-hermes-skills)
+[![Chrome](https://img.shields.io/badge/browser-Chrome-4285F4?logo=googlechrome&logoColor=white)](https://google.com/chrome)
 
 [Installation](#-installation-one-line-magic) · [Quick Start](#-quick-start) · [History](#-history--recent-artifacts) · [What's New](#-whats-new-in-v42)
 
@@ -73,7 +72,7 @@ Every save automatically archives your work with:
 ## 📥 Installation — One-Line Magic ✨
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/main/artifact-preview/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/install.sh | bash
 ```
 
 That's it. One command. Installs everything, registers with Hermes, starts the server. 🚀
@@ -91,7 +90,7 @@ alias ap='cd ~/artifact-preview && python3 server.py &'
 
 ### Uninstall (also one-line):
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/main/artifact-preview/uninstall.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/uninstall.sh | bash
 ```
 
 ---
@@ -187,11 +186,13 @@ pip install screeninfo pywinctl
 cd ~/artifact-preview && python3 server.py &
 
 # Stop server
-pkill -f "artifact-preview/server.py"
+lsof -ti :8765 | xargs kill 2>/dev/null || true
 
 # Verify running
 curl -s -o /dev/null -w "%{http_code}" http://localhost:8765/
 # → 200 ✅
+
+# Port is 8765. Override: export ARTIFACT_PREVIEW_PORT=9000
 ```
 
 ---
@@ -200,7 +201,7 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:8765/
 
 ```bash
 # 1. Install (one line!)
-curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/main/artifact-preview/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/install.sh | bash
 
 # 2. Start the server
 cd ~/artifact-preview && python3 server.py &

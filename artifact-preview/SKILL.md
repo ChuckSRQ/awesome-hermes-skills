@@ -2,23 +2,12 @@
 name: artifact-preview
 description: "🪽 Write code, see it live, instantly. Claude-style artifacts with persistent history, live reload, inline editor, screenshots, and 'Save as New'. v4.2 — one-line install! 🔥"
 triggers:
-  - make
-  - build
-  - show
-  - create
-  - generate
-  - visual
-  - interactive
-  - dashboard
-  - app
-  - ui
-  - website
-  - demo
-  - component
-  - page
-  - form
-  - widget
-  - chart
+  - preview
+  - artifact
+  - html preview
+  - live preview
+  - visual demo
+  - ui preview
 ---
 
 # 🪽 Artifact Preview **v4.2** — Live Preview + Smart History 🏆

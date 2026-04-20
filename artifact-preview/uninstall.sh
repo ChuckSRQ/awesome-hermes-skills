@@ -1,23 +1,25 @@
 #!/usr/bin/env bash
 # Artifact Preview — uninstall
-# Usage: curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/main/artifact-preview/uninstall.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/uninstall.sh | bash
 set -euo pipefail
 
 DEST_DIR="${ARTIFACT_PREVIEW_DIR:-$HOME/artifact-preview}"
+PORT="${ARTIFACT_PREVIEW_PORT:-8765}"
+
 case "$DEST_DIR" in
   "") echo "ERROR: DEST_DIR cannot be empty"; exit 1 ;;
   "$HOME") echo "ERROR: DEST_DIR cannot be $HOME"; exit 1 ;;
   "/") echo "ERROR: DEST_DIR cannot be /"; exit 1 ;;
-  "$HOME"/*) ;; 
+  "$HOME"/*) ;;
   *) echo "ERROR: DEST_DIR must be under $HOME"; exit 1 ;;
 esac
 
 echo "Uninstalling Artifact Preview..."
 
 # 1. Stop server
-if lsof -ti :8765 >/dev/null 2>&1; then
+if lsof -ti :$PORT >/dev/null 2>&1; then
   echo "  Stopping server..."
-  PID=$(lsof -ti :8765) && kill $PID 2>/dev/null || true
+  PID=$(lsof -ti :$PORT) && kill $PID 2>/dev/null || true
   sleep 1
   echo "  ✓ Server stopped"
 else
@@ -45,14 +47,9 @@ else
   echo "  ✓ hermes skill removed"
 fi
 
-# 4. Cleanup launchd plist if it exists
-PLIST="$HOME/Library/LaunchAgents/com.chucksrq.artifact-preview.plist"
-if [[ -f "$PLIST" ]]; then
-  launchctl unload "$PLIST" 2>/dev/null || true
-  rm -f "$PLIST"
-  echo "  ✓ launchd plist removed"
-fi
+# 4. Cleanup log
+rm -f /tmp/artifact-preview.log 2>/dev/null || true
+rm -f "$DEST_DIR/server.log" 2>/dev/null || true
 
 echo ""
-rm -f /tmp/artifact-preview.log 2>/dev/null || true
 echo "✓ Artifact Preview fully uninstalled."
