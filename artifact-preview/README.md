@@ -40,7 +40,6 @@ Want to experiment? Hit **"Save as New"** — your current preview stays safe �
 - 🕐 **Recent Artifacts Dropdown** — instantly switch between live and past versions
 - 📦 **Persistent History** — automatic timestamped backups (up to 15) with smart readable titles
 - ✅ **"Save as New"** — save a variation without touching your live preview
-- 🪟 **Cross-platform launcher** — macOS native feel, solid Windows/Linux support
 - 🎨 **Modern dark UI** with violet accents, auto-fit smart card, beautiful toast notifications
 
 **Idea → interactive prototype in ~3 seconds.** No hype. That's the actual experience. 🚀

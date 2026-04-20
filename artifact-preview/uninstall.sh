@@ -49,7 +49,6 @@ fi
 
 # 4. Cleanup log
 rm -f /tmp/artifact-preview.log 2>/dev/null || true
-rm -f "$DEST_DIR/server.log" 2>/dev/null || true
 
 echo ""
 echo "✓ Artifact Preview fully uninstalled."

@@ -14,8 +14,8 @@ case "$DEST_DIR" in
   *) echo "ERROR: DEST_DIR must be under $HOME"; exit 1 ;;
 esac
 
-# Rollback on failure
-trap 'echo "Install failed. Removing partial install..."; rm -rf "$DEST_DIR" 2>/dev/null; exit 1' ERR
+# Rollback on failure — preserve history if it exists
+trap 'echo "Install failed. Removing partial install..."; find "$DEST_DIR" -not -path "$DEST_DIR/history" -not -path "$DEST_DIR/history/*" -delete 2>/dev/null; exit 1' ERR
 
 BRANCH="${ARTIFACT_PREVIEW_BRANCH:-v4.2}"
 REPO="https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/$BRANCH/artifact-preview"
