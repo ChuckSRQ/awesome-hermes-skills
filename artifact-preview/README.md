@@ -46,14 +46,14 @@ Want to experiment? Hit **"Save as New"** — your current preview stays safe �
 
 ---
 
-## 🆕 What's New in **v4.2** 🔥
-
-- ✅ **Newest versions at top** of Recent dropdown (finally intuitive!)
-- ✅ **Auto-capture on server startup** — whatever's in `artifact.html` gets saved automatically
-- ✅ **"✅ Saved to history" toasts** — you *see* when your work is safely backed up
-- ✅ **"Save as New" button** — save variations without overwriting live artifact
-- ✅ **Pinned "● Current — Live"** in dropdown so you always know what you're looking at
-- ✅ Fixed toast deduplication + better error handling throughout
+## 🆕 What's New in v4.2 ⚡
+🌍 Universal Support — Now fully compatible with Windows 🪟 and Linux 🐧. No developer left behind!
+🔝 Smart History Sorting — The latest versions now sit right at the top of the dropdown. Intuition achieved! 🚀
+📸 Instant Auto-Capture — Whatever is in your artifact.html gets backed up the millisecond the server starts.
+🔔 Enhanced Toast Alerts — High-vis "Saved to History" notifications so you know your progress is secure.
+➕ The "Save as New" Branch — Experiment without fear! Save a fresh variation without touching your live artifact.
+📍 Always-On Pinning — Your "● Current — Live" view is now pinned to the top so you never lose your place.
+🛡️ Stability Buffs — Optimized error handling and fixed toast deduplication for a buttery-smooth experience.
 
 ---
 
