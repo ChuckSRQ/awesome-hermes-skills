@@ -262,6 +262,14 @@ lsof -i :8765 | grep LISTEN
 
 ## Troubleshooting
 
+**Server address already in use (Errno 48)?**
+The server is already running in the background. Verify it's live:
+```bash
+curl -s -o /dev/null -w "%{http_code}" http://localhost:8765/
+# 200 = running
+```
+No need to restart — just open Chrome at http://localhost:8765/ in your regular browser.
+
 **Preview not updating?**
 - Click **Refresh** in the toolbar — instant reload via SSE, no waiting
 - If that doesn't work: `pkill -f "artifact-preview/server.py" && cd ~/artifact-preview && python3 server.py &`
@@ -403,6 +411,15 @@ end run
 
 **Editor Save not working:**
 - Save POSTs to server — server must be running. If server doesn't support it, Save falls back to downloading the file.
+
+**History / Recent dropdown is empty after copying files directly:**
+The Recent dropdown only populates when artifacts are saved through the editor's **Save** button (POSTs to `/update`). Copying files directly to `artifact.html` via terminal does NOT auto-archive them. Use the Save button if you want history entries.
+
+**For programmatic QA testing (Claude → artifact-preview):**
+The MCP chrome-devtools tools (`navigate_page`, `click`, `evaluate_script`, `take_snapshot`, `take_screenshot`) are more reliable than the generic `browser_*` tools for scripted testing. `browser_navigate` may fail to land on the correct page — use `mcp_chrome_devtools_navigate_page` with `type: "url"` instead. Verify page state with `evaluate_script` queries, e.g.:
+```javascript
+() => ({ editorTab: window.state?.editorTab, activeTab: document.querySelector('.tab-btn.active')?.textContent })
+```
 
 **SSE connection lost (banner shows):**
 - Live reload falls back to manual refresh. Banner auto-dismisses when reconnected.
