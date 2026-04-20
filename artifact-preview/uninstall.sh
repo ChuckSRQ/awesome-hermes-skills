@@ -19,7 +19,7 @@ echo "Uninstalling Artifact Preview..."
 # 1. Stop server
 if lsof -ti :$PORT >/dev/null 2>&1; then
   echo "  Stopping server..."
-  PID=$(lsof -ti :$PORT) && kill $PID 2>/dev/null || true
+  lsof -ti :$PORT | xargs -r kill 2>/dev/null || true
   sleep 1
   echo "  ✓ Server stopped"
 else

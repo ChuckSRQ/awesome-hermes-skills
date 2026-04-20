@@ -102,7 +102,7 @@ echo "Starting Artifact Preview server..."
 
 # Kill any existing server on port
 if lsof -ti :$PORT >/dev/null 2>&1; then
-  PID=$(lsof -ti :$PORT) && kill $PID 2>/dev/null
+  lsof -ti :$PORT | xargs -r kill 2>/dev/null || true
   sleep 1
 fi
 
