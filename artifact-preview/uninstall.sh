@@ -4,13 +4,20 @@
 set -euo pipefail
 
 DEST_DIR="${ARTIFACT_PREVIEW_DIR:-$HOME/artifact-preview}"
+case "$DEST_DIR" in
+  "") echo "ERROR: DEST_DIR cannot be empty"; exit 1 ;;
+  "$HOME") echo "ERROR: DEST_DIR cannot be $HOME"; exit 1 ;;
+  "/") echo "ERROR: DEST_DIR cannot be /"; exit 1 ;;
+  "$HOME"/*) ;; 
+  *) echo "ERROR: DEST_DIR must be under $HOME"; exit 1 ;;
+esac
 
 echo "Uninstalling Artifact Preview..."
 
 # 1. Stop server
 if lsof -ti :8765 >/dev/null 2>&1; then
   echo "  Stopping server..."
-  PID=$(lsof -ti :8765) && kill $PID 2>/dev/null
+  PID=$(lsof -ti :8765) && kill $PID 2>/dev/null || true
   sleep 1
   echo "  ✓ Server stopped"
 else
@@ -47,4 +54,5 @@ if [[ -f "$PLIST" ]]; then
 fi
 
 echo ""
+rm -f /tmp/artifact-preview.log 2>/dev/null || true
 echo "✓ Artifact Preview fully uninstalled."
