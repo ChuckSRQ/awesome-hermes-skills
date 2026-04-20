@@ -478,6 +478,14 @@
                         </svg>
                         Save
                     </button>
+                    <button class="action-btn" id="btn-save-new" data-tip="Save as new version in history">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+                            <polyline points="17,21 17,13 7,13 7,21"/>
+                            <polyline points="7,3 7,8 15,8"/>
+                        </svg>
+                        Save as New
+                    </button>
                 </div>
             </div>
 
@@ -531,6 +539,15 @@
         evtSource.addEventListener('reload', () => {
             if (!state.sseConnected) return;
             artifactFrame.src = 'artifact.html?t=' + Date.now();
+        });
+
+        evtSource.addEventListener('history-saved', (e) => {
+            try {
+                const data = JSON.parse(e.data);
+                showToast(`✅ Saved to history: ${data.title}`);
+            } catch {
+                showToast('✅ Saved to history');
+            }
         });
 
         evtSource.onerror = () => {
@@ -639,6 +656,25 @@
             a.click();
             URL.revokeObjectURL(url);
             showToast('Downloaded — save to preview folder manually');
+        }
+    });
+
+    // ── Save as New ──
+    $('btn-save-new').addEventListener('click', async () => {
+        const newHTML = editorTextarea.value;
+        try {
+            const resp = await fetch('save-new', {
+                method: 'POST',
+                body: newHTML,
+                headers: { 'Content-Type': 'text/html; charset=utf-8' }
+            });
+            if (resp.ok) {
+                artifactFrame.src = 'artifact.html?t=' + Date.now();
+            } else {
+                showToast('Save failed', 3000, true);
+            }
+        } catch {
+            showToast('Save failed', 3000, true);
         }
     });
 
@@ -813,7 +849,12 @@
 
     function populateHistory(items) {
         // Clear existing options except first placeholder
-        recentDropdown.innerHTML = '<option value="">— Recent —</option>';
+        recentDropdown.innerHTML = '<option value="__placeholder__">— Recent —</option>';
+        // Always show "● Current — Live" at the top as a separator back to current
+        const liveOpt = document.createElement('option');
+        liveOpt.value = '';
+        liveOpt.textContent = '● Current — Live';
+        recentDropdown.appendChild(liveOpt);
         if (!items || items.length === 0) return;
         items.forEach((item, i) => {
             const opt = document.createElement('option');

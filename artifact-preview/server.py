@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-Artifact Preview Server v4.0 — Fast caching HTTP server with SSE for live updates.
+Artifact Preview Server v4.2 — Fast caching HTTP server with SSE for live updates.
 Routes:
   /              → UI wrapper (index.html)
   /artifact      → raw artifact HTML content (served as-is)
   /update        → POST to save updated artifact HTML
+  /save-new      → POST to archive as new version (does not overwrite artifact.html)
   /events        → SSE stream for live reload signals
   /notify-open    → POST to trigger browser auto-open
   /history/<filename> → serve archived artifact files
@@ -158,6 +159,9 @@ def _archive_artifact():
 
     _save_history()
 
+    # Notify frontend for nice toast
+    _notify_clients("history-saved", {"title": title or "Untitled"})
+
     # Broadcast history-update to all SSE clients
     _broadcast_history_update()
 
@@ -301,9 +305,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             content_length = int(self.headers.get("Content-Length", 0))
             body = self.rfile.read(content_length).decode("utf-8")
             try:
-                # Archive the old artifact before writing new content
-                _archive_artifact()
-
+                # Write new content first, then archive (newest appears at top of history)
                 with open(ARTIFACT_FILE, "w", encoding="utf-8") as f:
                     f.write(body)
                 global _mtime_artifact, _cached_artifact, _cached_etag_artifact
@@ -312,9 +314,36 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 _cached_etag_artifact = hashlib.md5(_cached_artifact).hexdigest()[:16]
                 print(f"[{time.strftime('%H:%M:%S')}] Saved artifact ({len(body):,} bytes)")
 
+                # Archive new content to history (after write so newest appears at top)
+                _archive_artifact()
+
                 # Broadcast live reload to all connected browsers
                 _notify_clients("reload")
 
+                self._send(200, "text/plain", b"OK")
+            except Exception as e:
+                self._send(500, "text/plain", str(e).encode())
+        elif self.path == "/save-new":
+            # Save as New: archive the provided content as a new history entry
+            # WITHOUT overwriting the current artifact.html
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            try:
+                # Swap artifact.html with new content just long enough to archive it,
+                # then restore the original
+                bak_path = ARTIFACT_FILE + ".bak"
+                # Backup current artifact
+                with open(ARTIFACT_FILE, "r", encoding="utf-8") as f:
+                    original = f.read()
+                # Write new content as "current" artifact temporarily
+                with open(ARTIFACT_FILE, "w", encoding="utf-8") as f:
+                    f.write(body)
+                # Archive the new content
+                _archive_artifact()
+                # Restore original artifact
+                with open(ARTIFACT_FILE, "w", encoding="utf-8") as f:
+                    f.write(original)
+                print(f"[{time.strftime('%H:%M:%S')}] Saved as new version ({len(body):,} bytes)")
                 self._send(200, "text/plain", b"OK")
             except Exception as e:
                 self._send(500, "text/plain", str(e).encode())
@@ -392,9 +421,10 @@ class ThreadedHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
 def run_server():
     # Load history on startup
     _load_history()
+    _archive_artifact()   # Auto-capture initial artifact.html on server start
 
     server = ThreadedHTTPServer(("", PORT), Handler)
-    print(f"Artifact Preview v4.0 server running on http://localhost:{PORT}")
+    print(f"Artifact Preview v4.2 server running on http://localhost:{PORT}")
     print(f"  /              → Preview UI")
     print(f"  /artifact      → Raw artifact HTML")
     print(f"  /update        → POST to save artifact + broadcast reload")
