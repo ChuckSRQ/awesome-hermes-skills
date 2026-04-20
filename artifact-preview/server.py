@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Artifact Preview Server v4.0 — Fast caching HTTP server with SSE for live updates.
+Artifact Preview Server v4.1 — Fast caching HTTP server with SSE for live updates.
 Routes:
   /              → UI wrapper (index.html)
   /artifact      → raw artifact HTML content (served as-is)
@@ -399,7 +399,7 @@ def run_server():
     _archive_artifact()   # Auto-capture initial artifact.html on server start
 
     server = ThreadedHTTPServer(("", PORT), Handler)
-    print(f"Artifact Preview v4.0 server running on http://localhost:{PORT}")
+    print(f"Artifact Preview v4.1 server running on http://localhost:{PORT}")
     print(f"  /              → Preview UI")
     print(f"  /artifact      → Raw artifact HTML")
     print(f"  /update        → POST to save artifact + broadcast reload")

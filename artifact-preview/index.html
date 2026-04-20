@@ -663,13 +663,16 @@
     $('btn-save-new').addEventListener('click', async () => {
         const newHTML = editorTextarea.value;
         try {
-            await fetch('update', {
+            const resp = await fetch('update', {
                 method: 'POST',
                 body: newHTML,
                 headers: { 'Content-Type': 'text/html; charset=utf-8' }
             });
-            showToast('✅ Saved as new version in history');
-            artifactFrame.src = 'artifact.html?t=' + Date.now();
+            if (resp.ok) {
+                artifactFrame.src = 'artifact.html?t=' + Date.now();
+            } else {
+                showToast('Save failed', 3000, true);
+            }
         } catch {
             showToast('Save failed', 3000, true);
         }
@@ -846,7 +849,7 @@
 
     function populateHistory(items) {
         // Clear existing options except first placeholder
-        recentDropdown.innerHTML = '<option value="">— Recent —</option>';
+        recentDropdown.innerHTML = '<option value="__placeholder__">— Recent —</option>';
         // Always show "● Current — Live" at the top as a separator back to current
         const liveOpt = document.createElement('option');
         liveOpt.value = '';
