@@ -12,7 +12,7 @@ Four production-ready skills for Hermes Agent — no fluff, no extras. Each one 
 
 ## 🪽 Artifact Preview · `artifact-preview/`
 
-> *Write code. See it live. Instantly. 🔥*
+> *Write code. See it live. Instantly. Never lose a version. 🔥*
 
 **The "Claude Artifacts" experience — for any AI agent.**
 
@@ -25,25 +25,17 @@ Write a prompt → get a polished, interactive HTML artifact → Chrome opens au
 | 📐 **Content-Shaped** | Portrait (~430×844) for phone apps, horizontal (~1240×720) for dashboards, full for websites |
 | ✏️ **Inline Editor** | Code / Split / Preview tabs with `Cmd+Shift+E` toggle |
 | 📸 **Screenshots** | One-click Retina capture to macOS Preview |
+| 💾 **Persistent History** | Every save archived — retrieve any previous version instantly |
+| 🆕 **Save as New** | Fork current artifact without overwriting — new entry in history |
 
-**Quick install:**
+**One-line install:**
 ```bash
-mkdir -p ~/artifact-preview
-cp artifact-preview/*.sh ~/artifact-preview/
-cp artifact-preview/*.applescript ~/artifact-preview/
-cp artifact-preview/server.py ~/artifact-preview/
-cp artifact-preview/index.html ~/artifact-preview/
-chmod +x ~/artifact-preview/open-chrome.sh
-cd ~/artifact-preview && python3 server.py &
-bash ~/artifact-preview/open-chrome.sh
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/install.sh | bash
 ```
 
-**Quick start:**
+**Uninstall (also one-line):**
 ```bash
-bash ~/artifact-preview/open-chrome.sh              # auto-detect
-bash ~/artifact-preview/open-chrome.sh portrait     # 📱 phone
-bash ~/artifact-preview/open-chrome.sh horizontal   # 📺 dashboard
-bash ~/artifact-preview/open-chrome.sh full         # 🖥️ website
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/uninstall.sh | bash
 ```
 
 ---
