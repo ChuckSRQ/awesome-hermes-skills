@@ -33,7 +33,7 @@ on run argv
         delay 0.1
 
         if theMode is "portrait" then
-            set bounds of front window to {60, 60, 600, 1020}
+            set bounds of front window to {60, 60, 540, 1020}
         else if theMode is "horizontal" then
             set bounds of front window to {60, 60, 1340, 780}
         else
