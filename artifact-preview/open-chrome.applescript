@@ -35,7 +35,7 @@ on run argv
         if theMode is "portrait" then
             set bounds of front window to {60, 60, 510, 860}
         else if theMode is "horizontal" then
-            set bounds of front window to {60, 60, 1300, 791}
+            set bounds of front window to {60, 60, 1340, 780}
         else
             set screenDims to do shell script "swift -e 'import AppKit; let s = NSScreen.main!.frame.size; print(Int(s.width), Int(s.height))'"
             set oldDelims to AppleScript's text item delimiters
