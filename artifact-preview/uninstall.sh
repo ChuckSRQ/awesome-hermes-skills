@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Artifact Preview — uninstall
-# Usage: curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/uninstall.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.3/artifact-preview/uninstall.sh | bash
 set -euo pipefail
 
 DEST_DIR="${ARTIFACT_PREVIEW_DIR:-$HOME/artifact-preview}"

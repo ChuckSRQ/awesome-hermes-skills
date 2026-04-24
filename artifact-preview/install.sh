@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Artifact Preview — one-line install
-# Usage: curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/install.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.3/artifact-preview/install.sh | bash
 set -euo pipefail
 
 DEST_DIR="${ARTIFACT_PREVIEW_DIR:-$HOME/artifact-preview}"
@@ -17,7 +17,7 @@ esac
 # Rollback on failure — preserve history if it exists
 trap 'echo "Install failed. Removing partial install..."; find "$DEST_DIR" -depth -not -path "$DEST_DIR/history" -not -path "$DEST_DIR/history/*" -delete 2>/dev/null; exit 1' ERR
 
-BRANCH="${ARTIFACT_PREVIEW_BRANCH:-v4.2}"
+BRANCH="${ARTIFACT_PREVIEW_BRANCH:-v4.3}"
 REPO="https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/$BRANCH/artifact-preview"
 SKILL_NAME="artifact-preview"
 

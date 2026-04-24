@@ -883,13 +883,28 @@
     }
 
     // Switch to archived artifact on dropdown change
-    recentDropdown.addEventListener('change', () => {
+    recentDropdown.addEventListener('change', async () => {
         const filename = recentDropdown.value;
         if (!filename) {
+            // Return to current — reload current artifact and its source
             artifactFrame.src = 'artifact.html?t=' + Date.now();
+            if (editorOpen()) {
+                try {
+                    const resp = await fetch('artifact.html');
+                    editorTextarea.value = await resp.text();
+                } catch {}
+            }
             return;
         }
-        artifactFrame.src = '/history/' + filename + '?t=' + Date.now();
+        // Load history artifact into preview iframe AND source into textarea (if editor open)
+        const src = '/history/' + filename + '?t=' + Date.now();
+        artifactFrame.src = src;
+        if (editorOpen()) {
+            try {
+                const resp = await fetch(src.replace('?t=' + Date.now(), ''));
+                editorTextarea.value = await resp.text();
+            } catch {}
+        }
     });
 
     // ── Artifact iframe load ──

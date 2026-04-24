@@ -1,19 +1,19 @@
 <div align="center">
 
-# 🪽 Artifact Preview **v4.2** — Claude Artifacts, But Better 🔥
+# 🪽 Artifact Preview **v4.3** — Claude Artifacts, But Better 🔥
 
 ### Write code. See it live. Instantly. Never lose a version. 🪄
 
 **One-line install • Persistent History • Live Reload • Save as New** ✨
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.3/artifact-preview/install.sh | bash
 ```
 
 [![macOS](https://img.shields.io/badge/platform-macOS-000000?logo=apple&logoColor=white)](https://github.com/ChuckSRQ/awesome-hermes-skills)
 [![Chrome](https://img.shields.io/badge/browser-Chrome-4285F4?logo=googlechrome&logoColor=white)](https://google.com/chrome)
 
-[Installation](#-installation-one-line-magic) · [Quick Start](#-quick-start) · [History](#-history--recent-artifacts) · [What's New](#-whats-new-in-v42)
+[Installation](#-installation-one-line-magic) · [Quick Start](#-quick-start) · [History](#-history--recent-artifacts) · [What's New](#-whats-new-in-v43)
 
 </div>
 
@@ -27,7 +27,7 @@ Make a change? **Live reload in sub-second** ⚡
 Love a version? **Saved to history automatically** 🕐
 Want to experiment? Hit **"Save as New"** — your current preview stays safe ✅
 
-**Artifact Preview v4.2** turns raw AI output into a delightful, version-controlled visual experience. Stop losing work. Start building faster. 🔥
+**Artifact Preview v4.3** turns raw AI output into a delightful, version-controlled visual experience. Stop losing work. Start building faster. 🔥
 
 ---
 
@@ -45,6 +45,13 @@ Want to experiment? Hit **"Save as New"** — your current preview stays safe �
 **Idea → interactive prototype in ~3 seconds.** No hype. That's the actual experience. 🚀
 
 ---
+
+## 🆕 What's New in v4.3 ⚡
+- ⚡ **Live reload actually works now** — the preview UI's EventSource listener correctly reloads the artifact after every POST. This was the core reliability fix.
+- ⚡ **Server SSE broadcast verified** — every `/update` POST fires `event: reload` on the `/events` SSE stream.
+- 🔧 **Chrome startup reliability** — profile picker suppressed on cold start, no duplicate tabs, window activation fixed.
+- 📐 **Precise window sizing** — Portrait: 480×960px (9:16), Horizontal: 1280×720px (16:9). All content visible without scrolling in portrait mode.
+- 🧠 **Dual-panel history recall** — switching to a past artifact via the Recent dropdown now updates BOTH the preview and the code panel simultaneously.
 
 ## 🆕 What's New in v4.2 ⚡
 - 🌍 Universal Support — Now fully compatible with Windows 🪟 and Linux 🐧. No developer left behind!
@@ -71,7 +78,7 @@ Every save automatically archives your work with:
 ## 📥 Installation — One-Line Magic ✨
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.3/artifact-preview/install.sh | bash
 ```
 
 That's it. One command. Installs everything, registers with Hermes, starts the server. 🚀
@@ -89,18 +96,20 @@ alias ap='cd ~/artifact-preview && python3 server.py &'
 
 ### Uninstall (also one-line):
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/uninstall.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.3/artifact-preview/uninstall.sh | bash
 ```
 
 ---
 
 ## 🪟 Launch Modes
 
-| Mode | Size | Best For 🔥 |
-|------|------|-------------|
-| **Portrait** 📱 | ~430×844 | Phone apps, mobile UI, fitness trackers, Instagram-style |
-| **Horizontal** 📺 | ~1240×720 | Dashboards, analytics, data viz, video layouts |
-| **Full** 🖥️ | Main display | Websites, landing pages, full applications |
+| Mode | Size | Aspect Ratio | Best For 🔥 |
+|------|------|-------------|-------------|
+| **Portrait** 📱 | 480 × 960px | 9:16 | Phone apps, mobile UI, fitness trackers, Instagram-style |
+| **Horizontal** 📺 | 1280 × 720px | 16:9 | Dashboards, analytics, data viz, video layouts |
+| **Full** 🖥️ | Main display | — | Websites, landing pages, full applications |
+
+Portrait shows all content without scrolling. Horizontal is standard 16:9 HD.
 
 **Auto-detect works automatically** — but you can force a mode:
 ```bash
@@ -200,7 +209,7 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:8765/
 
 ```bash
 # 1. Install (one line!)
-curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.3/artifact-preview/install.sh | bash
 
 # 2. Start the server
 cd ~/artifact-preview && python3 server.py &
