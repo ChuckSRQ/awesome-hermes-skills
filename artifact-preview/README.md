@@ -49,7 +49,9 @@ Want to experiment? Hit **"Save as New"** — your current preview stays safe �
 ## 🆕 What's New in v4.3 ⚡
 - ⚡ **Live reload actually works now** — the preview UI's EventSource listener correctly reloads the artifact after every POST. This was the core reliability fix.
 - ⚡ **Server SSE broadcast verified** — every `/update` POST fires `event: reload` on the `/events` SSE stream.
-- 🛠️ **Improved install diagnostics** — better error reporting on Python version check failures.
+- 🔧 **Chrome startup reliability** — profile picker suppressed on cold start, no duplicate tabs, window activation fixed.
+- 📐 **Precise window sizing** — Portrait: 480×960px (9:16), Horizontal: 1280×720px (16:9). All content visible without scrolling in portrait mode.
+- 🧠 **Dual-panel history recall** — switching to a past artifact via the Recent dropdown now updates BOTH the preview and the code panel simultaneously.
 
 ## 🆕 What's New in v4.2 ⚡
 - 🌍 Universal Support — Now fully compatible with Windows 🪟 and Linux 🐧. No developer left behind!
@@ -101,11 +103,13 @@ curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.3
 
 ## 🪟 Launch Modes
 
-| Mode | Size | Best For 🔥 |
-|------|------|-------------|
-| **Portrait** 📱 | ~430×844 | Phone apps, mobile UI, fitness trackers, Instagram-style |
-| **Horizontal** 📺 | ~1240×720 | Dashboards, analytics, data viz, video layouts |
-| **Full** 🖥️ | Main display | Websites, landing pages, full applications |
+| Mode | Size | Aspect Ratio | Best For 🔥 |
+|------|------|-------------|-------------|
+| **Portrait** 📱 | 480 × 960px | 9:16 | Phone apps, mobile UI, fitness trackers, Instagram-style |
+| **Horizontal** 📺 | 1280 × 720px | 16:9 | Dashboards, analytics, data viz, video layouts |
+| **Full** 🖥️ | Main display | — | Websites, landing pages, full applications |
+
+Portrait shows all content without scrolling. Horizontal is standard 16:9 HD.
 
 **Auto-detect works automatically** — but you can force a mode:
 ```bash

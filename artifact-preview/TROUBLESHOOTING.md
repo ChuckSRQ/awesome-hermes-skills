@@ -96,7 +96,7 @@ curl -X POST http://localhost:8765/update -d "<h1>test</h1>" -H "Content-Type: t
 
 ---
 
-## Issue: History dropdown preview and code panel out of sync
+## Issue: Dual-panel history recall — preview and code panel out of sync
 
 **Symptoms:** Using the — Recent — dropdown to switch to a previous artifact changed the preview iframe correctly but the code panel (Code tab) still showed the current artifact's source.
 

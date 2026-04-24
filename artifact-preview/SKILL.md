@@ -128,8 +128,8 @@ Click any entry in the **Recent dropdown** to load it. Click **"● Current — 
 
 ```bash
 bash ~/artifact-preview/open-chrome.sh            # auto-detect — MUST use bash, not open
-bash ~/artifact-preview/open-chrome.sh portrait   # phone ~430×844 📱
-bash ~/artifact-preview/open-chrome.sh horizontal # video ~1240×720 📺
+bash ~/artifact-preview/open-chrome.sh portrait   # phone 480×960 (9:16) 📱
+bash ~/artifact-preview/open-chrome.sh horizontal # monitor 1280×720 (16:9) 📺
 bash ~/artifact-preview/open-chrome.sh full      # maximized 🖥️
 ```
 
@@ -252,8 +252,9 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:8765/
 
 - **Fixed:** SSE live-reload — the preview UI now correctly listens for `reload` events and refreshes the artifact iframe instantly after every POST
 - **Fixed:** Server-side broadcast reliability — verified that `event: reload` fires from `/events` SSE endpoint after every `/update` POST
-- **Improved:** install.sh — faster startup with better error diagnostics
-- **Improved:** `/save-new` endpoint removed from docs (was never implemented — use editor's "Save as New" button instead)
+- **Fixed:** Chrome startup reliability — profile picker suppressed on cold start, no duplicate tabs when Chrome already running, window activation fixed
+- **Fixed:** Dual-panel history recall — switching to a past artifact via the Recent dropdown now updates BOTH the preview iframe AND the code panel simultaneously
+- **Improved:** Precise window sizing — Portrait 480×960 (9:16), Horizontal 1280×720 (16:9), all content visible without scrolling
 
 ---
 
