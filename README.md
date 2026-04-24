@@ -30,12 +30,12 @@ Write a prompt → get a polished, interactive HTML artifact → Chrome opens au
 
 **One-line install:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.3/artifact-preview/install.sh | bash
 ```
 
 **Uninstall (also one-line):**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.2/artifact-preview/uninstall.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ChuckSRQ/awesome-hermes-skills/v4.3/artifact-preview/uninstall.sh | bash
 ```
 
 ---
