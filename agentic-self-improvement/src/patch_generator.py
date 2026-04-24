@@ -9,6 +9,8 @@ Supports OpenAI, Anthropic, Gemini, and MiniMax model types.
 
 from __future__ import annotations
 
+import os
+
 import re
 from pathlib import Path
 
